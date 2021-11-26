@@ -1,0 +1,18 @@
+C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\UnrealEditor\Development\RaceCarFrame\Definitions.RaceCarFrame.h
+C:\UE5Pro\RaceCarFrame\Source\RaceCarFrame\RaceCarFrameGameMode.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/GameModeBase.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/ServerStatReplicator.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\ServerStatReplicator.generated.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\GameModeBase.generated.h
+C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\UnrealEditor\Inc\RaceCarFrame\RaceCarFrameGameMode.generated.h
+C:\UE5Pro\RaceCarFrame\Source\RaceCarFrame\RaceCarFramePawn.h
+C:\UE5Pro\RaceCarFrame\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\WheeledVehiclePawn.h
+C:\UE5Pro\RaceCarFrame\Plugins\ChaosVehiclesPlugin\Intermediate\Build\Win64\UnrealEditor\Inc\ChaosVehicles\WheeledVehiclePawn.generated.h
+C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\UnrealEditor\Inc\RaceCarFrame\RaceCarFramePawn.generated.h
+C:\UE5Pro\RaceCarFrame\Source\RaceCarFrame\RaceCarFrameHud.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/HUD.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/HUDHitBox.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/DebugTextInfo.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\DebugTextInfo.generated.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\HUD.generated.h
+C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\UnrealEditor\Inc\RaceCarFrame\RaceCarFrameHud.generated.h

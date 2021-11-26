@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "RaceCarFrame",
+			"Path": "C:\\UE5Pro\\RaceCarFrame\\Source\\RaceCarFrame.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "RaceCarFrameEditor",
+			"Path": "C:\\UE5Pro\\RaceCarFrame\\Source\\RaceCarFrameEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

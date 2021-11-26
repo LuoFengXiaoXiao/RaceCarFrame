@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-DataDriven-9721.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\RaceCarFrameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Module.DataDriven.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Module.DataDriven.gen.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Default.rc2.res"
+/OUT:"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\UnrealEditor-DataDriven-9721.lib"
+/INCLUDE:IMPLEMENT_MODULE_DataDriven

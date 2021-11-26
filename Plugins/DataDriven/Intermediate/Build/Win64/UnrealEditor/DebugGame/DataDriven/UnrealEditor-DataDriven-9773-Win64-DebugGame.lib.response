@@ -1,0 +1,14 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-DataDriven-9773-Win64-DebugGame.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\RaceCarFrameEditor\DebugGame\Engine\SharedPCH.Engine.NonOptimized.ShadowErrors.h.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\DebugGame\DataDriven\Module.DataDriven.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\DebugGame\DataDriven\Module.DataDriven.gen.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\DebugGame\DataDriven\Default.rc2.res"
+/OUT:"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\DebugGame\DataDriven\UnrealEditor-DataDriven-9773-Win64-DebugGame.lib"
+/INCLUDE:IMPLEMENT_MODULE_DataDriven

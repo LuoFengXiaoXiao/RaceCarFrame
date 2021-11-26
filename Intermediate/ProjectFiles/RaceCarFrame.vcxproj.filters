@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\RaceCarFrame.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{C257F289-1EB1-4CC8-882D-843EDAAC8571}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\RaceCarFrame.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\RaceCarFrameEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{05A3BAB0-D84C-4F3F-A85E-B1DAC10F9628}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Plugins">
+      <UniqueIdentifier>{4CBA1BFC-28F4-4FD7-A351-F5C3439578BF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ChaosVehiclesPlugin">
+      <UniqueIdentifier>{5CCA3352-2B48-4C17-AA30-B89792A1E2B5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source">
+      <UniqueIdentifier>{875D232C-9F41-4386-9721-D93821953089}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles">
+      <UniqueIdentifier>{2E9108A6-E845-4E4F-B27C-FA2B3CF2A4F4}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\ChaosVehicles.Build.cs">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea">
+      <UniqueIdentifier>{C5B2F8A4-3242-476F-8DB0-AE475FD2968F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir">
+      <UniqueIdentifier>{39F31568-A51F-4788-8A59-8946EC416C54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea">
+      <UniqueIdentifier>{72BE4F1F-AFFD-4222-8A42-33F68C671381}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea\.gitignore">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea\encodings.xml">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea\indexLayout.xml">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea\projectSettingsUpdater.xml">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea\workspace.xml">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\.idea\.idea.ChaosVehicles.dir\.idea</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private">
+      <UniqueIdentifier>{ED9CD596-0EC4-4468-B3C3-A708D5C8EC43}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\AnimNode_WheelController.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\AsyncCallback.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\ChaosVehicleManager.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\ChaosVehicleMovementComponent.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\ChaosVehiclesPlugin.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\ChaosVehicleWheel.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\ChaosWheeledVehicleMovementComponent.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\VehicleAnimationInstance.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private\WheeledVehiclePawn.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Private</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public">
+      <UniqueIdentifier>{372C94B9-C3AD-4DCF-81F5-C7E792C8E6CE}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\AnimNode_WheelController.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\AsyncCallback.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\ChaosVehicleManager.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\ChaosVehicleMovementComponent.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\ChaosVehiclesPlugin.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\ChaosVehicleWheel.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\ChaosWheeledVehicleMovementComponent.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\SnapshotData.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\VehicleAnimationInstance.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\WheeledVehiclePawn.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public</Filter>
+    </ClInclude>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\ChaosVehiclesPlugin.uplugin">
+      <Filter>Plugins\ChaosVehiclesPlugin</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Config">
+      <UniqueIdentifier>{22C41DB0-AA45-412B-BBAE-D9A758854600}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Config\FilterPlugin.ini">
+      <Filter>Plugins\ChaosVehiclesPlugin\Config</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Resources">
+      <UniqueIdentifier>{F924724C-BA0E-4384-9A39-BD6B4C66843F}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Resources\ChaosVehicles_16x.png">
+      <Filter>Plugins\ChaosVehiclesPlugin\Resources</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Resources\ChaosVehicles_64x.png">
+      <Filter>Plugins\ChaosVehiclesPlugin\Resources</Filter>
+    </None>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Resources\Icon128.png">
+      <Filter>Plugins\ChaosVehiclesPlugin\Resources</Filter>
+    </None>
+    <Filter Include="Plugins\DataDriven">
+      <UniqueIdentifier>{EF5DF5D6-4D04-45CE-BB30-F1BA82397217}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\DataDriven\DataDriven.uplugin">
+      <Filter>Plugins\DataDriven</Filter>
+    </None>
+    <Filter Include="Plugins\DataDriven\Resources">
+      <UniqueIdentifier>{7BD7B43F-6EDE-4469-8C5B-581D736040D1}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\DataDriven\Resources\Icon128.png">
+      <Filter>Plugins\DataDriven\Resources</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor">
+      <UniqueIdentifier>{37C2B24B-8107-406B-831E-CB42816B82E9}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\ChaosVehiclesEditor.Build.cs">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor</Filter>
+    </None>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private">
+      <UniqueIdentifier>{A4ACF407-4D61-4A87-8061-8754C01D4B39}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\AnimGraphNode_WheelController.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\AssetTypeActions_ChaosVehicles.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\ChaosVehiclesEditorCommands.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\ChaosVehiclesEditorPlugin.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\ChaosVehiclesEditorStyle.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private\ChaosVehiclesFactory.cpp">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Private</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public">
+      <UniqueIdentifier>{5E06E6D2-0C43-4B5F-93D3-B7D682C7FDE3}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public\AnimGraphNode_WheelController.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public\AssetTypeActions_ChaosVehicles.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public\ChaosVehiclesEditorCommands.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public\ChaosVehiclesEditorPlugin.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public\ChaosVehiclesFactory.h">
+      <Filter>Plugins\ChaosVehiclesPlugin\Source\ChaosVehiclesEditor\Public</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\DataDriven\Source">
+      <UniqueIdentifier>{48C6861F-6493-4948-9A51-473E21E8C5C3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven">
+      <UniqueIdentifier>{B37C7E19-1EA6-4FC0-9E1C-98A28DB4CF53}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Plugins\DataDriven\Source\DataDriven\DataDriven.Build.cs">
+      <Filter>Plugins\DataDriven\Source\DataDriven</Filter>
+    </None>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Private">
+      <UniqueIdentifier>{3FBE3A2B-4BE2-4674-BFBF-E6E3D9DB815C}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DataDriven.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Private\DDCommon">
+      <UniqueIdentifier>{C85E9B60-7591-4B9D-A3A4-5C8A0D341850}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCommon\DDCommon.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCommon\DDDefine.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCommon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCommon\DDTypes.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCommon</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Private\DDCore">
+      <UniqueIdentifier>{A1502565-C84B-4B5E-8F18-3458A77DB8A8}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDCenterModule.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDDriver.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDMessage.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDMM.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDModel.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDModule.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDCore\DDWealth.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDCore</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Private\DDGame">
+      <UniqueIdentifier>{F60B2886-B28C-4EF4-92A1-65C269589CD8}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDGame\DGCommon.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDGame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDGame\DGTypes.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDGame</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Private\DDObject">
+      <UniqueIdentifier>{FA46734A-7A50-4A88-9BEE-AF70DE375852}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDActor.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDActorComponent.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDAIController.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDCameraActor.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDCharacter.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDGameInstance.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDGameModeBase.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDGameStateBase.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDHUD.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDLevelScriptActor.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDObject.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDOO.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDPawn.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDPlayerCameraManager.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDPlayerController.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDPlayerState.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDSceneComponent.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDUserWidget.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Plugins\DataDriven\Source\DataDriven\Private\DDObject\DDWheeledVehiclePawn.cpp">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Private\DDObject</Filter>
+    </ClCompile>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Public">
+      <UniqueIdentifier>{3E166998-C41C-419F-B467-C08C58F0120C}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DataDriven.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Public\DDCommon">
+      <UniqueIdentifier>{F1DE1265-41BC-457C-9DBA-089F554F0B15}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDCommon.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDDefine.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDTypes.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Public\DDCore">
+      <UniqueIdentifier>{553FC6CF-E148-4FEF-BCC1-587E0AA12935}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDCenterModule.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDDriver.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDMessage.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDMM.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDModel.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDModule.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCore\DDWealth.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCore</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Public\DDGame">
+      <UniqueIdentifier>{7DAD7E15-88C4-43FB-AA56-EAF22780427D}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDGame\DGCommon.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDGame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDGame\DGTypes.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDGame</Filter>
+    </ClInclude>
+    <Filter Include="Plugins\DataDriven\Source\DataDriven\Public\DDObject">
+      <UniqueIdentifier>{29695706-795C-40E0-9791-E4AC7DC39138}</UniqueIdentifier>
+    </Filter>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDActor.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDActorComponent.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDAIController.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDCameraActor.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDCharacter.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDGameInstance.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDGameModeBase.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDGameStateBase.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDHUD.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDLevelScriptActor.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDObject.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDOO.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDPawn.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDPlayerCameraManager.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDPlayerController.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDPlayerState.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDSceneComponent.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDUserWidget.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDWheeledVehiclePawn.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDObject</Filter>
+    </ClInclude>
+    <Filter Include="Source\RaceCarFrame">
+      <UniqueIdentifier>{4CAF46E1-5E24-45B0-91B5-B82B25B02CCE}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\RaceCarFrame\CoroActor.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\CoroActor.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\LifeCallActor.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\LifeCallActor.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\RaceCarFrame\RaceCarFrame.Build.cs">
+      <Filter>Source\RaceCarFrame</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFrame.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFrame.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFrameGameMode.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFrameGameMode.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFrameHud.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFrameHud.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFramePawn.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFramePawn.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFrameWheelFront.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFrameWheelFront.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\RaceCarFrameWheelRear.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\RaceCarFrameWheelRear.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\RaceCarFrame\ReflectActor.cpp">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\RaceCarFrame\ReflectActor.h">
+      <Filter>Source\RaceCarFrame</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDCoroBegin.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDCoroEnd.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Plugins\DataDriven\Source\DataDriven\Public\DDCommon\DDYieldReady.h">
+      <Filter>Plugins\DataDriven\Source\DataDriven\Public\DDCommon</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

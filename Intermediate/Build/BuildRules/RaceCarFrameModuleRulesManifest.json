@@ -1,0 +1,11 @@
+{
+	"SourceFiles": [
+		"C:\\UE5Pro\\RaceCarFrame\\Source\\RaceCarFrame\\RaceCarFrame.Build.cs",
+		"C:\\UE5Pro\\RaceCarFrame\\Plugins\\ChaosVehiclesPlugin\\Source\\ChaosVehicles\\ChaosVehicles.Build.cs",
+		"C:\\UE5Pro\\RaceCarFrame\\Plugins\\ChaosVehiclesPlugin\\Source\\ChaosVehiclesEditor\\ChaosVehiclesEditor.Build.cs",
+		"C:\\UE5Pro\\RaceCarFrame\\Plugins\\DataDriven\\Source\\DataDriven\\DataDriven.Build.cs",
+		"C:\\UE5Pro\\RaceCarFrame\\Source\\RaceCarFrame.Target.cs",
+		"C:\\UE5Pro\\RaceCarFrame\\Source\\RaceCarFrameEditor.Target.cs"
+	],
+	"EngineVersion": "5.0.0"
+}
