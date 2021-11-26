@@ -1,0 +1,5 @@
+#define DDYIELD_COUNT -1
+#ifdef DDCORO_WORK_START
+DDCORO_WORK_START
+#endif
+

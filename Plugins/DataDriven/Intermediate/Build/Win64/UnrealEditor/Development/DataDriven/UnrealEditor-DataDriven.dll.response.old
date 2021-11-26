@@ -35,6 +35,8 @@
 /FUNCTIONPADMIN
 "C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\RaceCarFrameEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
 "C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Module.DataDriven.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\DDDefine.cpp.obj"
+"C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\DDTypes.cpp.obj"
 "C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Module.DataDriven.gen.cpp.obj"
 "C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Default.rc2.res"
 "C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\CoreUObject\UnrealEditor-CoreUObject.lib"
@@ -45,8 +47,8 @@
 "C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\AIModule\UnrealEditor-AIModule.lib"
 "C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\GameplayTasks\UnrealEditor-GameplayTasks.lib"
 "C:\Program Files\Epic Games\UE_5.0EA\Engine\Plugins\Runtime\PhysXVehicles\Intermediate\Build\Win64\UnrealEditor\Development\PhysXVehicles\UnrealEditor-PhysXVehicles.lib"
-"C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "C:\UE5Pro\RaceCarFrame\Plugins\ChaosVehiclesPlugin\Intermediate\Build\Win64\UnrealEditor\Development\ChaosVehicles\UnrealEditor-ChaosVehicles.lib"
+"C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Development\Core\UnrealEditor-Core.lib"
 "delayimp.lib"
 "wininet.lib"
 "rpcrt4.lib"

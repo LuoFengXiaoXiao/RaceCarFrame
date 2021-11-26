@@ -16,7 +16,9 @@ void ACoroActor::DDEnable()
 
 	IsCoroPause = true;
 
-	StartCoroutine(CoroTestTwo());
+	TempStartCoroutine(CoroTestTwo());
+
+	DDStartCoroutine(CoroTestThree());
 }
 
 void ACoroActor::DDTick(float DeltaSeconds)
@@ -26,16 +28,29 @@ void ACoroActor::DDTick(float DeltaSeconds)
 	//CoroTestOne(DeltaSeconds);
 
 	// 协程帧循环逻辑
-	TArray<CoroTask*> TempTask;
-	for (int i = 0;i<TaskList.Num();++i)
+	//TArray<CoroTask*> TempTask;
+	//for (int i = 0;i<TaskList.Num();++i)
+	//{
+	//	TaskList[i]->Work(DeltaSeconds);
+	//	if (TaskList[i]->IsFinish())
+	//		TempTask.Push(TaskList[i]);
+	//}
+	//for (int i = 0;i<TempTask.Num();++i)
+	//{
+	//	TaskList.Remove(TempTask[i]);
+	//	delete TempTask[i];
+	//}
+
+	TArray<DDCoroTask*> TempTask;
+	for (int i = 0; i < DDTaskList.Num(); ++i)
 	{
-		TaskList[i]->Work(DeltaSeconds);
-		if (TaskList[i]->IsFinish())
-			TempTask.Push(TaskList[i]);
+		DDTaskList[i]->Work(DeltaSeconds);
+		if (DDTaskList[i]->IsFinish())
+			TempTask.Push(DDTaskList[i]);
 	}
-	for (int i = 0;i<TempTask.Num();++i)
+	for (int i = 0; i < TempTask.Num(); ++i)
 	{
-		TaskList.Remove(TempTask[i]);
+		DDTaskList.Remove(TempTask[i]);
 		delete TempTask[i];
 	}
 
@@ -109,73 +124,44 @@ CoroTask* ACoroActor::CoroTestTwo()
 
 DDCoroTask* ACoroActor::CoroTestThree()
 {
-	// 协程参数分块
+	// 协程参数区
 	DDCORO_PARAM(ACoroActor);
-		// 用来定义类变量，需要保存状态字变量
-#define DDYIELD_COUNT -1
+	// 可以保存状态的参数
 
-// work方法开头
-#pragma region DDCORO_WORK_START
-		virtual void Work(float DeltaTime) override
-		{
-			goto DDCORO_LABEL_PICKER;
+	// 协程方法主体开始
+#include DDCORO_BEGIN()
 
-		DDCORO_LABEL_START:
-#pragma endregion
+	DDH::Debug() << 0 << DDH::Endl();
 
-// 协程方法逻辑
-#pragma region CoroFunCode
-#if DDYIELD_COUNT == -1
-#define DDYIELD_COUNT 0
-			DDCORO_LABEL_0 :
-#elif DDYIELD_COUNT == 0
-#define DDYIELD_COUNT 1
-			DDCORO_LABEL_1:
-#endif
-		if (CoroStack[DDYIELD_COUNT]->UpdateOperate(&(D->IsCoroPause)))
-			goto DDCORO_LABEL_END;
+#include DDYIELD_READY()
 
-#if DDYIELD_COUNT == -1
-#define DDYIELD_COUNT 0
-			DDCORO_LABEL_0 :
-#elif DDYIELD_COUNT == 0
-#define DDYIELD_COUNT 1
-			DDCORO_LABEL_1 :
-#endif
-		if (CoroStack[DDYIELD_COUNT]->UpdateOperate(10))
-			goto DDCORO_LABEL_END;
-#pragma endregion
+	DDYIELD_RETURN_BOOL(&(D->IsCoroPause));
 
-// work方法中间
-#pragma region DDCORO_WORK_MIDDLE
-			goto DDCORO_LABEL_END;
+	DDH::Debug() << 1 << DDH::Endl();
 
-		DDCORO_LABEL_PICKER:
-#pragma endregion
+#include DDYIELD_READY()
 
-// 协程条件跳转代码
-#pragma region CoroPicker
-#if DDYIELD_COUNT == 0
-			if (CoroStack[0]->IsActive) goto DDCORO_LABEL_0;
-#elif DDYIELD_COUNT == 1
-			if (CoroStack[0]->IsActive) goto DDCORO_LABEL_0;
-			if (CoroStack[1]->IsActive) goto DDCORO_LABEL_1;
-#endif
-#pragma endregion
+	DDYIELD_RETURN_TICK(300);
 
-// work方法结尾
-#pragma region DDCORO_WORK_END
-			goto DDCORO_LABEL_START;
+	DDH::Debug() << 2 << DDH::Endl();
 
-		DDCORO_LABEL_END:
-			;
-		}
-	};
-	return new DGCoroTask(this, DDYIELD_COUNT);
-#pragma endregion
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_SECOND(10);
+
+	DDH::Debug() << 3 << DDH::Endl();
+
+		// 协程方法主体结束
+#include DDCORO_END()
+
 }
 
-void ACoroActor::StartCoroutine(CoroTask* InTask)
+void ACoroActor::DDStartCoroutine(DDCoroTask* InTask)
+{
+	DDTaskList.Push(InTask);
+}
+
+void ACoroActor::TempStartCoroutine(CoroTask* InTask)
 {
 	TaskList.Push(InTask);
 }

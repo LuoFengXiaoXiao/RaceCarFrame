@@ -4,8 +4,6 @@
 		"Module.DataDriven.cpp.obj": [
 			"DataDriven.cpp.obj",
 			"DDCommon.cpp.obj",
-			"DDDefine.cpp.obj",
-			"DDTypes.cpp.obj",
 			"DDCenterModule.cpp.obj",
 			"DDDriver.cpp.obj",
 			"DDMessage.cpp.obj",
@@ -33,10 +31,11 @@
 			"DDPlayerState.cpp.obj",
 			"DDSceneComponent.cpp.obj",
 			"DDUserWidget.cpp.obj",
-			"DDWheeledVehiclePawn.cpp.obj"
+			"DDWheeledVehiclePawn.cpp.obj",
+			"DDDefine.cpp.obj",
+			"DDTypes.cpp.obj"
 		],
 		"Module.DataDriven.gen.cpp.obj": [
-			"DataDriven.init.gen.cpp.obj",
 			"DDActor.gen.cpp.obj",
 			"DDActorComponent.gen.cpp.obj",
 			"DDAIController.gen.cpp.obj",
@@ -44,7 +43,6 @@
 			"DDCenterModule.gen.cpp.obj",
 			"DDCharacter.gen.cpp.obj",
 			"DDCommon.gen.cpp.obj",
-			"DDDefine.gen.cpp.obj",
 			"DDDriver.gen.cpp.obj",
 			"DDGameInstance.gen.cpp.obj",
 			"DDGameModeBase.gen.cpp.obj",
@@ -67,7 +65,9 @@
 			"DDWealth.gen.cpp.obj",
 			"DDWheeledVehiclePawn.gen.cpp.obj",
 			"DGCommon.gen.cpp.obj",
-			"DGTypes.gen.cpp.obj"
+			"DGTypes.gen.cpp.obj",
+			"DataDriven.init.gen.cpp.obj",
+			"DDDefine.gen.cpp.obj"
 		]
 	}
 }

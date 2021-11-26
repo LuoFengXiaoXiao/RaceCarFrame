@@ -40,7 +40,7 @@ void EmptyLinkFunctionForGeneratedCodeDDDefine() {}
 	};
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDDDefine_Statics::Class_MetaDataParams[] = {
-		{ "Comment", "/**\n * \n */" },
+		{ "Comment", "/**\n *\n */" },
 		{ "IncludePath", "DDCommon/DDDefine.h" },
 		{ "ModuleRelativePath", "Public/DDCommon/DDDefine.h" },
 	};
@@ -72,7 +72,7 @@ void EmptyLinkFunctionForGeneratedCodeDDDefine() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UDDDefine, 3934571245);
+	IMPLEMENT_CLASS(UDDDefine, 905566972);
 	template<> DATADRIVEN_API UClass* StaticClass<UDDDefine>()
 	{
 		return UDDDefine::StaticClass();

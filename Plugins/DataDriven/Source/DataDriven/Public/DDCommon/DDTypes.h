@@ -691,12 +691,12 @@ struct DDCoroNode
 
 struct DDCoroTask
 {
-	TArray<CoroNode*> CoroStack;
+	TArray<DDCoroNode*> CoroStack;
 	// 构造函数
 	DDCoroTask(int32 CoroCount)
 	{
 		for (int i = 0; i <= CoroCount; ++i)
-			CoroStack.Push(new CoroNode());
+			CoroStack.Push(new DDCoroNode());
 	}
 	// 析构函数
 	virtual ~DDCoroTask()

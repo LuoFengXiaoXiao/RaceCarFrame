@@ -189,7 +189,9 @@ protected:
 	// 宏定义的测试方法
 	DDCoroTask* CoroTestThree();
 
-	void StartCoroutine(CoroTask* InTask);
+	void TempStartCoroutine(CoroTask* InTask);
+
+	void DDStartCoroutine(DDCoroTask* InTask);
 	
 	void EchoCoroInfo();
 
@@ -201,6 +203,8 @@ protected:
 	CoroNode TimeNode;
 
 	TArray<CoroTask*> TaskList;
+
+	TArray<DDCoroTask*> DDTaskList;
 
 	FString CoroStr;
 
