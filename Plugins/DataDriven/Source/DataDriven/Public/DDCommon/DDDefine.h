@@ -1923,18 +1923,19 @@ class DATADRIVEN_API UDDDefine : public UObject
 //	return Param;
 //}
 
+
 // 参数区域宏定义
 #define DDCORO_PARAM(UserClass);\
 struct DGCoroTask :public DDCoroTask\
 {\
 	UserClass* D;\
-	DGCoroTask(UserClass* Data, int32 CoroCount) :DDCoroTask(CoroCount) { D = Data; }
+	DGCoroTask(UserClass* Data, int32 CoroCount) : DDCoroTask(CoroCount) { D = Data; }
 
 // work方法开头
-#define DDCORO_WORK_START\
-virtual void Work(float DeltaTime) override\
-{\
-	goto DDCORO_LABEL_PICKER;\
+#define DDCORO_WORK_START \
+virtual void Work(float DeltaTime) override \
+{ \
+	goto DDCORO_LABEL_PICKER; \
 DDCORO_LABEL_START:
 
 // work方法中间

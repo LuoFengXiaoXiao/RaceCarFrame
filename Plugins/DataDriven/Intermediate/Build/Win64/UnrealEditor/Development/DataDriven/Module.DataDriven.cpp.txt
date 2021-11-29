@@ -22,6 +22,7 @@ C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DDGame\DGType
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DGTypes.generated.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DGCommon.generated.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDCommon.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCommon/DDTypes.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCore/DDCenterModule.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DDCore/DDCenterModule.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DDCore/DDModule.h

@@ -127,14 +127,12 @@ DDCoroTask* ACoroActor::CoroTestThree()
 	// 协程参数区
 	DDCORO_PARAM(ACoroActor);
 	// 可以保存状态的参数
-
 	// 协程方法主体开始
 #include DDCORO_BEGIN()
 
 	DDH::Debug() << 0 << DDH::Endl();
 
 #include DDYIELD_READY()
-
 	DDYIELD_RETURN_BOOL(&(D->IsCoroPause));
 
 	DDH::Debug() << 1 << DDH::Endl();
@@ -151,7 +149,7 @@ DDCoroTask* ACoroActor::CoroTestThree()
 
 	DDH::Debug() << 3 << DDH::Endl();
 
-		// 协程方法主体结束
+	// 协程方法主体结束
 #include DDCORO_END()
 
 }
