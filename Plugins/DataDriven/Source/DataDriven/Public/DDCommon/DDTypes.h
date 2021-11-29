@@ -691,10 +691,14 @@ struct DDCoroNode
 
 struct DDCoroTask
 {
+	// 是否销毁
+	bool IsDestory;
+	// 多个协程节点
 	TArray<DDCoroNode*> CoroStack;
 	// 构造函数
 	DDCoroTask(int32 CoroCount)
 	{
+		IsDestory = false;
 		for (int i = 0; i <= CoroCount; ++i)
 			CoroStack.Push(new DDCoroNode());
 	}
@@ -730,6 +734,8 @@ DECLARE_DELEGATE(FDDInvokeEvent)
 
 struct DDInvokeTask
 {
+	// 是否销毁
+	bool IsDestory;
 	// 延时执行的时间
 	float DelayTime;
 	// 是否循环
@@ -745,6 +751,7 @@ struct DDInvokeTask
 	// 构造函数
 	DDInvokeTask(float InDelayTime,bool InIsRepeat, float InRepeatTime)
 	{
+		IsDestory = false;
 		DelayTime = InDelayTime;
 		IsRepeat = InIsRepeat;
 		RepeatTime = InRepeatTime;

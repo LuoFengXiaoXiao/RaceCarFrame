@@ -16,12 +16,13 @@ void ACoroActor::DDEnable()
 
 	IsCoroPause = true;
 
-	InvokeRepeat("EchoInfo", 3.f, 2.f,this, &ACoroActor::EchoCoroInfo);
+	//InvokeRepeat("EchoInfo", 3.f, 2.f,this, &ACoroActor::EchoCoroInfo);
 
 	//TempStartCoroutine(CoroTestTwo());
 	//DDH::Debug()<<"StartCoroutine-->" << StartCoroutine("CoroTestThree", CoroTestThree())<<DDH::Endl();
 
 	//DDStartCoroutine(CoroTestThree());
+	StartCoroutine("CoroFixed", CoroFixed());
 }
 
 void ACoroActor::DDTick(float DeltaSeconds)
@@ -190,6 +191,38 @@ DDCoroTask* ACoroActor::CoroTestThree()
 	// 协程方法主体结束
 #include DDCORO_END()
 
+}
+
+DDCoroTask* ACoroActor::CoroFixed()
+{
+	// 协程参数区
+	DDCORO_PARAM(ACoroActor);
+	// 可以保存状态的参数（协程方法变量）
+
+	// 协程方法主体开始
+#include DDCORO_BEGIN()
+	// 协程方法主体逻辑，至少有一个逻辑代码
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_SECOND(5);
+
+	DDH::Debug() << "SecondYield-->" << 5 << DDH::Endl();
+
+	D->StopCoro();
+
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_SECOND(3);
+
+	DDH::Debug() << "SecondYield-->" << 3 << DDH::Endl();
+
+	// 协程方法主体结束
+#include DDCORO_END()
+}
+
+void ACoroActor::StopCoro()
+{
+	StopCoroutine("CoroFixed");
 }
 
 DDCoroTask* ACoroActor::CoroFunc()

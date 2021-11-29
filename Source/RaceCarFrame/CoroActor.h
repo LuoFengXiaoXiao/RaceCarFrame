@@ -192,6 +192,11 @@ protected:
 	// 实现协程方法的方式
 	DDCoroTask* CoroFunc();
 
+	// 协程问题修复
+	DDCoroTask* CoroFixed();
+
+	void StopCoro();
+
 	void TempStartCoroutine(CoroTask* InTask);
 
 	void DDStartCoroutine(DDCoroTask* InTask);
