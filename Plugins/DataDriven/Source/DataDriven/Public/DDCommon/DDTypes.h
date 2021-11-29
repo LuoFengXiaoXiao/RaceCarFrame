@@ -723,3 +723,61 @@ struct DDCoroTask
 };
 
 #pragma endregion
+
+#pragma region Invoke
+
+DECLARE_DELEGATE(FDDInvokeEvent)
+
+struct DDInvokeTask
+{
+	// 延时执行的时间
+	float DelayTime;
+	// 是否循环
+	bool IsRepeat;
+	// 循环时间间隔
+	float RepeatTime;
+	// 是否在循环阶段
+	bool IsRepeatState;
+	// 计时器
+	float TimeCount;
+	// 方法委托
+	FDDInvokeEvent InvokeEvent;
+	// 构造函数
+	DDInvokeTask(float InDelayTime,bool InIsRepeat, float InRepeatTime)
+	{
+		DelayTime = InDelayTime;
+		IsRepeat = InIsRepeat;
+		RepeatTime = InRepeatTime;
+		IsRepeatState = false;
+		TimeCount = 0.f;
+	}
+	// 帧更新函数
+	bool UpdateOperate(float DeltaSeconds)
+	{
+		TimeCount += DeltaSeconds;
+		if (!IsRepeatState)
+		{
+			if (TimeCount>= DelayTime)
+			{
+				InvokeEvent.ExecuteIfBound();
+				TimeCount = 0.f;
+				if (IsRepeat)
+					IsRepeatState = true;
+				else
+					return true;
+			}
+		}
+		else
+		{
+			if (TimeCount>=RepeatTime)
+			{
+				InvokeEvent.ExecuteIfBound();
+				TimeCount = 0.f;
+			}
+		}
+		return false;
+	}
+};
+
+#pragma endregion
+

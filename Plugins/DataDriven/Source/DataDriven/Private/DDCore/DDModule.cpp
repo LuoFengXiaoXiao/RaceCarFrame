@@ -145,6 +145,36 @@ void UDDModule::ExecuteFunction(DDObjectAgreement Agreement, DDParam* Param)
 }
 
 
+bool UDDModule::StartCoroutine(FName ObjectName, FName CoroName, DDCoroTask* CoroTask)
+{
+	return Message->StartCoroutine(ObjectName, CoroName, CoroTask);
+}
+
+bool UDDModule::StopCoroutine(FName ObjectName, FName CoroName)
+{
+	return Message->StopCoroutine(ObjectName, CoroName);
+}
+
+void UDDModule::StopAllCoroutine(FName ObjectName)
+{
+	Message->StopAllCoroutine(ObjectName);
+}
+
+bool UDDModule::StartInvoke(FName ObjectName, FName InvokeName, DDInvokeTask* InvokeTask)
+{
+	return Message->StartInvoke(ObjectName, InvokeName, InvokeTask);
+}
+
+bool UDDModule::StopInvoke(FName ObjectName, FName InvokeName)
+{
+	return Message->StopInvoke(ObjectName, InvokeName);
+}
+
+void UDDModule::StopAllInvoke(FName ObjectName)
+{
+	Message->StopAllInvoke(ObjectName);
+}
+
 void UDDModule::ExecuteSelfObject(DDObjectAgreement Agreement, DDParam* Param)
 {
 	// 定义存储目标的组

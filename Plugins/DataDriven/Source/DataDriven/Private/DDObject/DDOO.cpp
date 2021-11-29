@@ -229,3 +229,28 @@ void IDDOO::ExecuteFunction(DDObjectAgreement Agreement, DDParam* Param)
 		IDriver->ExecuteFunction(Agreement, Param);
 	}
 }
+
+bool IDDOO::StartCoroutine(FName CoroName, DDCoroTask* CoroTask)
+{
+	return IModule->StartCoroutine(GetObjectName(), CoroName, CoroTask);
+}
+
+bool IDDOO::StopCoroutine(FName CoroName)
+{
+	return IModule->StopCoroutine(GetObjectName(), CoroName);
+}
+
+void IDDOO::StopAllCoroutine()
+{
+	IModule->StopAllCoroutine(GetObjectName());
+}
+
+bool IDDOO::StopInvoke(FName InvokeName)
+{
+	return IModule->StopInvoke(GetObjectName(), InvokeName);
+}
+
+void IDDOO::StopAllInvoke()
+{
+	IModule->StopAllInvoke(GetObjectName());
+}

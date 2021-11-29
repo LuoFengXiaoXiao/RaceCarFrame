@@ -35,10 +35,34 @@ public:
 	// 注册方法接口
 	template<typename RetType, typename... VarTypes>
 	DDFunHandle RegisterFunPort(FName CallName,TFunction<RetType(VarTypes...)> InsFun);
+
+	// 开启一个协程，返回true说明开启成功，返回false说明已经有同对象同名协程任务名的协程存在
+	bool StartCoroutine(FName ObjectName, FName CoroName, DDCoroTask* CoroTask);
+
+	// 停止一个协程,返回true说明协程停止成功，返回false说明协程早已经停止(协程任务不存在)
+	bool StopCoroutine(FName ObjectName, FName CoroName);
+
+	// 停止所有协程（对象下的所有协程）
+	void StopAllCoroutine(FName ObjectName);
+
+	// 开始一个延时方法，返回true说明成功，返回false说明已经存在同对象名同任务名的任务
+	bool StartInvoke(FName ObjectName, FName InvokeName, DDInvokeTask* InvokeTask);
+	// 停止一个延时
+	bool StopInvoke(FName ObjectName, FName InvokeName);
+	// 停止对象下的所有延时方法
+	void StopAllInvoke(FName ObjectName);
+
 protected:
 
 	// 事件队列
 	DDMsgQuene* MsgQuene;
+
+	// 协程序列，键1保存对象名，值的键FName对应的时协程任务的名字
+	TMap<FName, TMap<FName, DDCoroTask*>> CoroStack;
+
+	// 延时序列
+	TMap<FName, TMap<FName, DDInvokeTask*>> InvokeStack;
+
 };
 
 template<typename RetType, typename... VarTypes>

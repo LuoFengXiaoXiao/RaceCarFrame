@@ -16,9 +16,12 @@ void ACoroActor::DDEnable()
 
 	IsCoroPause = true;
 
-	TempStartCoroutine(CoroTestTwo());
+	InvokeRepeat("EchoInfo", 3.f, 2.f,this, &ACoroActor::EchoCoroInfo);
 
-	DDStartCoroutine(CoroTestThree());
+	//TempStartCoroutine(CoroTestTwo());
+	//DDH::Debug()<<"StartCoroutine-->" << StartCoroutine("CoroTestThree", CoroTestThree())<<DDH::Endl();
+
+	//DDStartCoroutine(CoroTestThree());
 }
 
 void ACoroActor::DDTick(float DeltaSeconds)
@@ -127,31 +130,85 @@ DDCoroTask* ACoroActor::CoroTestThree()
 	// 协程参数区
 	DDCORO_PARAM(ACoroActor);
 	// 可以保存状态的参数
+	int i, j;
+
 	// 协程方法主体开始
 #include DDCORO_BEGIN()
 
-	DDH::Debug() << 0 << DDH::Endl();
+	DDH::Debug() <<"YieldStart-->"<< 0 << DDH::Endl();
 
 #include DDYIELD_READY()
 	DDYIELD_RETURN_BOOL(&(D->IsCoroPause));
 
-	DDH::Debug() << 1 << DDH::Endl();
+	DDH::Debug() << "BoolYield-->" << 1 << DDH::Endl();
 
 #include DDYIELD_READY()
+	DDYIELD_RETURN_LAMB(D->PauseLambuda(););
 
-	DDYIELD_RETURN_TICK(300);
-
-	DDH::Debug() << 2 << DDH::Endl();
+	DDH::Debug() << "LAMBYield-->" << 2 << DDH::Endl();
 
 #include DDYIELD_READY()
 
 	DDYIELD_RETURN_SECOND(10);
 
-	DDH::Debug() << 3 << DDH::Endl();
+	DDH::Debug() << "SecondYield-->" << 4 << DDH::Endl();
+
+#include DDYIELD_READY()
+	DDYIELD_RETURN_FUNC(D, &ACoroActor::PauseFunPtr);
+
+	DDH::Debug() << "FuncYield-->" << 5 << DDH::Endl();
+
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_TICK(300);
+
+	DDH::Debug() << "TickYield-->" << 3 << DDH::Endl();
+
+	for (i = 0; i < 10; i++)
+	{
+		for (j = 0;j<5;j++)
+		{
+#include DDYIELD_READY()
+			DDYIELD_RETURN_TICK(20);
+			DDH::Debug() << "i = " << i << ",j = " << j << DDH::Endl();
+
+			if (i*10+j>20)
+			{
+#include DDYIELD_READY()
+				DDYIELD_RETURN_STOP();
+			}
+		}
+	}
+
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_SECOND(10);
+
+	DDH::Debug() << "SecondYield-->" << 6 << DDH::Endl();
+
 
 	// 协程方法主体结束
 #include DDCORO_END()
 
+}
+
+DDCoroTask* ACoroActor::CoroFunc()
+{
+	// 协程参数区
+	DDCORO_PARAM(ACoroActor);
+	// 可以保存状态的参数（协程方法变量）
+
+	// 协程方法主体开始
+#include DDCORO_BEGIN()
+	// 协程方法主体逻辑，至少有一个逻辑代码
+#include DDYIELD_READY()
+
+	DDYIELD_RETURN_SECOND(10);
+
+	DDH::Debug() << "SecondYield-->" << 6 << DDH::Endl();
+
+	// 协程方法主体结束
+#include DDCORO_END()
 }
 
 void ACoroActor::DDStartCoroutine(DDCoroTask* InTask)

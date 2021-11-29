@@ -189,6 +189,9 @@ protected:
 	// 宏定义的测试方法
 	DDCoroTask* CoroTestThree();
 
+	// 实现协程方法的方式
+	DDCoroTask* CoroFunc();
+
 	void TempStartCoroutine(CoroTask* InTask);
 
 	void DDStartCoroutine(DDCoroTask* InTask);

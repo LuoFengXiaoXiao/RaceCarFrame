@@ -361,3 +361,16 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# UE4 
+.vs/
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+RaceCarFrame.sln/
+Plugins/ChaosVehiclesPlugin/Binaries/
+Plugins/ChaosVehiclesPlugin/Intermediate/
+Plugins/DataDriven/Binaries/
+Plugins/DataDriven/Intermediate/
+

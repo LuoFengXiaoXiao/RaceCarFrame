@@ -105,6 +105,30 @@ protected:
 	template<typename RetType, typename... VarTypes>
 	DDFunHandle RegisterFunPort(int32 ModIndex,FName CallName, TFunction<RetType(VarTypes...)> InsFun);
 
+	// 开启一个协程，返回true说明开启成功，返回false说明已经有同对象同名协程任务名的协程存在
+	bool StartCoroutine(FName CoroName, DDCoroTask* CoroTask);
+
+	// 停止一个协程,返回true说明协程停止成功，返回false说明协程早已经停止(协程任务不存在)
+	bool StopCoroutine(FName CoroName);
+
+	// 停止所有协程（对象下的所有协程）
+	void StopAllCoroutine();
+
+	//延时运行
+	template<class UserClass>
+	bool InvokeDelay(FName InvokeName, float DelayTime, UserClass* UserObj, typename FDDInvokeEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod);
+
+	//延时循环运行
+	template<class UserClass>
+	bool InvokeRepeat(FName InvokeName, float DelayTime, float RepeatTime, UserClass* UserObj, typename FDDInvokeEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod);
+
+	//关闭延时方法
+	bool StopInvoke(FName InvokeName);
+
+	//关闭对象下所有延时方法
+	void StopAllInvoke();
+
+
 protected:
 
 	// 保存自身的UObject
@@ -141,4 +165,20 @@ DDFunHandle IDDOO::RegisterFunPort(int32 ModIndex,FName CallName, TFunction<RetT
 		return IModule->RegisterFunPort<RetType, VarTypes...>(CallName, InsFun);
 	else
 		return IDriver->RegisterFunPort<RetType, VarTypes...>(ModIndex, CallName, InsFun);
+}
+
+template<class UserClass>
+bool IDDOO::InvokeDelay(FName InvokeName, float DelayTime, UserClass* UserObj, typename FDDInvokeEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod)
+{
+	DDInvokeTask* InvokeTask = new DDInvokeTask(DelayTime, false, 0.f);
+	InvokeTask->InvokeEvent.BindUObject(UserObj, InMethod);
+	return IModule->StartInvoke(GetObjectName(), InvokeName, InvokeTask);
+}
+
+template<class UserClass>
+bool IDDOO::InvokeRepeat(FName InvokeName, float DelayTime, float RepeatTime, UserClass* UserObj, typename FDDInvokeEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod)
+{
+	DDInvokeTask* InvokeTask = new DDInvokeTask(DelayTime, true, RepeatTime);
+	InvokeTask->InvokeEvent.BindUObject(UserObj, InMethod);
+	return IModule->StartInvoke(GetObjectName(), InvokeName, InvokeTask);
 }
