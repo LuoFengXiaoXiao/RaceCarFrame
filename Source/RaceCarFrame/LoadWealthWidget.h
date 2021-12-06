@@ -23,9 +23,16 @@ public:
 	UFUNCTION()
 		void LoadSingleTexture(FName BackName,UObject* BackWealth);
 
+	UFUNCTION()
+		void LoadKindTexture(TArray<FName> BackNames,TArray<UObject*> BackWealths);
+
 public:
 
 	// 获取蓝图中创建的变量--ViewImage
 	UPROPERTY(meta = (BindWidget))
 		UImage* ViewImage;
+
+	int32 ImageIndex;
+
+	TArray<UTexture2D*> TextureGroup;
 };

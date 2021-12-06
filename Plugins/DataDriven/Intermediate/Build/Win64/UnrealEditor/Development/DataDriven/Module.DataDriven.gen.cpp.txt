@@ -1,7 +1,8 @@
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Definitions.DataDriven.h
-C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDActor.gen.cpp
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DataDriven.init.gen.cpp
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/GeneratedCppIncludes.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\CoreUObject\Public\UObject/MetaData.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDActor.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDActor.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DDObject\DDOO.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DDCore/DDModule.h
@@ -86,6 +87,7 @@ C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDCa
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Camera/CameraActor.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\CameraActor.generated.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDCameraActor.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDCenterModule.gen.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDCharacter.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDCharacter.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\GameFramework/Character.h
@@ -126,10 +128,12 @@ C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDLe
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/LevelScriptActor.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\Engine\LevelScriptActor.generated.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDLevelScriptActor.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDMessage.gen.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDMM.gen.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDModel.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDCore/DDModel.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDModel.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDModule.gen.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDObject.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDObject.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDObject.generated.h
@@ -151,6 +155,7 @@ C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDSceneComponent.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDSceneComponent.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDSceneComponent.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDTypes.gen.cpp
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDUserWidget.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDUserWidget.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\UMG\Public\Blueprint/UserWidget.h
@@ -245,6 +250,10 @@ C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEdito
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\UMG\WidgetBlueprintGeneratedClass.generated.h
 C:\Program Files\Epic Games\UE_5.0EA\Engine\Intermediate\Build\Win64\UnrealEditor\Inc\UMG\UserWidget.generated.h
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDUserWidget.generated.h
+C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDWealth.gen.cpp
+C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDCore/DDWealth.h
+C:\Program Files\Epic Games\UE_5.0EA\Engine\Source\Runtime\Engine\Classes\Engine/StreamableManager.h
+C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Inc\DataDriven\DDWealth.generated.h
 C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Intermediate/Build/Win64/UnrealEditor/Inc/DataDriven/DDWheeledVehiclePawn.gen.cpp
 C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven/Public/DDObject/DDWheeledVehiclePawn.h
 C:\UE5Pro\RaceCarFrame\Plugins\ChaosVehiclesPlugin\Source\ChaosVehicles\Public\WheeledVehiclePawn.h

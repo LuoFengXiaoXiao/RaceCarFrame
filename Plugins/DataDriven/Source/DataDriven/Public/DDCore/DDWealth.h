@@ -11,6 +11,7 @@
 
 // 加载Object节点
 struct ObjectSingleLoadNode;
+struct ObjectKindLoadNode;
 /**
  * 
  */
@@ -52,6 +53,8 @@ protected:
 
 	// 加载节点队列
 	TArray<ObjectSingleLoadNode*> ObjectSingleLoadStack;
+	// 批量加载节点队列
+	TArray<ObjectKindLoadNode*> ObjectKindLoadStack;
 
 protected:
 	// 获取Object资源结构体
@@ -60,6 +63,8 @@ protected:
 
 	// 帧处理加载单个Object节点的方法
 	void DealObjectSingleLoadStack();
+	// 处理批量加载Object的方法
+	void DealObjectKindLoadStack();
 
 	// 加载UObject反射回调函数
 	DDOBJFUNC_TWO(BackObjectWealth, FName, BackName, UObject*, BackWealth);
