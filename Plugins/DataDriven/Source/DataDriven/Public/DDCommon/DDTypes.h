@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 
 #include "Engine/GameEngine.h"
+#include <Engine/DataAsset.h>
 
 #include "DDTypes.generated.h"
 
@@ -788,3 +789,189 @@ struct DDInvokeTask
 
 #pragma endregion
 
+#pragma region Wealth
+
+USTRUCT()
+struct FWealthItem 
+{
+	GENERATED_BODY()
+	
+public:
+
+	// 对象名
+	UPROPERTY(EditAnywhere)
+		FName ObjcetName;
+
+	// 类名
+	UPROPERTY(EditAnywhere)
+		FName ClassName;
+};
+
+USTRUCT()
+struct FWealthObject:public FWealthItem
+{
+	GENERATED_BODY()
+	// Object对应的UClass
+public:
+
+	// 该种指定方式可以只能指定继承自UObject的子类
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UObject> WealthClass;
+
+};
+
+USTRUCT()
+struct FWealthActor :public FWealthItem
+{
+	GENERATED_BODY()
+		// Actor对应的UClass
+public:
+
+	// 该种指定方式可以只能指定继承自AActor的子类
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<AActor> WealthClass;
+
+	UPROPERTY(EditAnywhere)
+		FTransform Transform;
+
+};
+
+USTRUCT()
+struct FWealthWidget :public FWealthItem
+{
+	GENERATED_BODY()
+		// UUserWidget对应的UClass
+public:
+
+	// 该种指定方式可以只能指定继承自AActor的子类
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<UUserWidget> WealthClass;
+
+};
+
+// Object资源结构体
+USTRUCT()
+struct FObjectWealthEntry 
+{
+	GENERATED_BODY()
+
+public:
+	// 资源名
+	UPROPERTY(EditAnywhere)
+		FName WealthName;
+
+	// 资源种类名
+	UPROPERTY(EditAnywhere)
+		FName WealthKind;
+
+	// 资源路径
+	// FStringAssetReference was renamed to FSoftObjectPath
+	UPROPERTY(EditAnywhere)
+		FSoftObjectPath WealthPath;
+
+	// 加载出来的对象
+	UPROPERTY()
+		UObject* WealthObject;
+
+};
+
+// UClass 类型枚举
+UENUM()
+enum class EWealthType:uint8
+{
+	Object,
+	Actor,
+	Widget
+};
+
+// UClass的资源结构体
+USTRUCT()
+struct FClassWealthEntry
+{
+	GENERATED_BODY()
+public:
+	// 资源类别
+	UPROPERTY(EditAnywhere)
+		EWealthType WealthType;
+
+	// 资源名
+	UPROPERTY(EditAnywhere)
+		FName WealthName;
+
+	// 资源种类名
+	UPROPERTY(EditAnywhere)
+		FName WealthKind;
+
+	// 资源链接
+	UPROPERTY(EditAnywhere)
+		TSoftClassPtr<UObject> WealthPtr;
+
+	// 加载出来的对象
+	UPROPERTY()
+		UClass* WealthClass;
+
+};
+
+// 纯获取资源结构体，不参与同异步加载
+USTRUCT()
+struct FWealthUrl
+{
+	GENERATED_BODY()
+
+public:
+
+	// 资源名
+	UPROPERTY(EditAnywhere)
+		FName WealthName;
+
+	// 资源种类名
+	UPROPERTY(EditAnywhere)
+		FName WealthKind;
+
+	// 资源路径
+	UPROPERTY(EditAnywhere)
+		FSoftObjectPath WealthPath;
+
+	// 资源链接
+	UPROPERTY(EditAnywhere)
+		TSoftClassPtr<UObject> WealthPtr;
+};
+
+UCLASS()
+class DATADRIVEN_API UWealthData:public UDataAsset
+{
+	GENERATED_BODY()
+
+public:
+
+	// 模组名字,这个DataAsset下的资源生成的对象默认注册到ModuleName对应的模组
+	// 如果可以在多个模组下使用，设置为空
+	UPROPERTY(EditAnywhere)
+		FName ModuleName;
+
+	// 自动生成的ObjectData
+	UPROPERTY(EditAnywhere)
+		TArray<FWealthObject> AutoObjectData;
+
+	// 自动生成的ActorData
+	UPROPERTY(EditAnywhere)
+		TArray<FWealthActor> AutoActorData;
+
+	// 自动生成的WidgetData
+	UPROPERTY(EditAnywhere)
+		TArray<FWealthWidget> AutoWidgetData;
+
+	// Object资源链接集合
+	UPROPERTY(EditAnywhere)
+		TArray<FObjectWealthEntry> ObjectWealthData;
+
+	// Class资源链接集合
+	UPROPERTY(EditAnywhere)
+		TArray<FClassWealthEntry> ObjectClassData;
+
+	// 资源链接集合
+	UPROPERTY(EditAnywhere)
+		TArray<FWealthUrl> WealthUrl;
+};
+
+#pragma  endregion

@@ -8,7 +8,10 @@
 #include "DDPawn.generated.h"
 
 UCLASS()
-class DATADRIVEN_API ADDPawn : public APawn,public IDDOO
+class DATADRIVEN_API ADDPawn
+	: public APawn,
+	public IDDOO
+	// ¼Ì³ÐDDOO½Ó¿Ú
 {
 	GENERATED_BODY()
 

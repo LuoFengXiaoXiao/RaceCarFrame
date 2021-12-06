@@ -183,7 +183,13 @@ void IDDOO::DDUnRegister(){}
 
 void IDDOO::DDunLoading(){}
 
-void IDDOO::DDRelease(){}
+void IDDOO::DDRelease()
+{
+	// 注销所有协程，延时及按键事件
+	StopAllCoroutine();
+	StopAllInvoke();
+	UnBindInput();
+}
 
 void IDDOO::OnEnable()
 {
@@ -253,4 +259,29 @@ bool IDDOO::StopInvoke(FName InvokeName)
 void IDDOO::StopAllInvoke()
 {
 	IModule->StopAllInvoke(GetObjectName());
+}
+
+void IDDOO::UnBindInput()
+{
+	IModule->UnBindInput(GetObjectName());
+}
+
+FWealthUrl* IDDOO::GainWealthUrl(FName WealthName)
+{
+	return IModule->GainWealthUrl(WealthName);
+}
+
+void IDDOO::GainWealthUrl(FName WealthKind, TArray<FWealthUrl*>& OutUrl)
+{
+	IModule->GainWealthUrl(WealthKind, OutUrl);
+}
+
+void IDDOO::LoadObjectWealth(FName WealthName, FName FunName)
+{
+	IModule->LoadObjectWealth(WealthName, GetObjectName(), FunName);
+}
+
+void IDDOO::LoadObjectWealthKind(FName WealthKind, FName FunName)
+{
+	IModule->LoadObjectWealthKind(WealthKind, GetObjectName(), FunName);
 }

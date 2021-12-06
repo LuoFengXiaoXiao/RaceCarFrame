@@ -5,7 +5,46 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "DDMM.h"
+#include <GameFramework/PlayerController.h>
 #include "DDMessage.generated.h"
+
+#pragma region InputBinder
+
+DECLARE_DELEGATE(FDDInputEvent)
+
+UCLASS()
+class DATADRIVEN_API UDDInputBinder :public UObject
+{
+	GENERATED_BODY()
+	// 此处创建继承自UObject的原因是是Delegate可以绑定UObject的函数
+public:
+
+	UDDInputBinder();
+
+	void PressEvent();
+
+	void ReleaseEvent();
+
+	template<class UserClass>
+	void InitBinder(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, uint8 InCount)
+	{
+		TotalCount = InCount;
+		InputDele.BindUObject(UserObj, InMethod);
+	}
+
+public:
+
+	uint8 InputCount;
+
+	uint8 TotalCount;
+
+	// 游戏暂停时是否执行按键事件
+	uint8 bExecuteWhenPause;
+
+	FDDInputEvent InputDele;
+};
+
+#pragma endregion
 
 /**
  * 
@@ -52,6 +91,29 @@ public:
 	// 停止对象下的所有延时方法
 	void StopAllInvoke(FName ObjectName);
 
+	// 绑定Axis按键事件
+	template<class UserClass>
+	FInputAxisBinding& BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName);
+
+	// 绑定触摸事件
+	template<class UserClass>
+	FInputTouchBinding& BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent);
+
+	// 绑定Action按键事件
+	template<class UserClass>
+	FInputActionBinding& BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent);
+
+	// 绑定单个按键事件
+	template<class UserClass>
+	FInputKeyBinding& BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent);
+
+	// 绑定多个按键
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, TArray<FKey>& KeyGroup, FName ObjectName);
+
+	// 解绑对象的所有按键事件
+	void UnBindInput(FName ObjectName);
+
 protected:
 
 	// 事件队列
@@ -63,6 +125,11 @@ protected:
 	// 延时序列
 	TMap<FName, TMap<FName, DDInvokeTask*>> InvokeStack;
 
+	// 绑定按键事件序列
+	TMap<FName, TArray<UDDInputBinder*>> BinderGroup;
+
+	// 通过APlayerController的指针进行绑定
+	APlayerController* PlayerController;
 };
 
 template<typename RetType, typename... VarTypes>
@@ -77,4 +144,48 @@ DDFunHandle
 UDDMessage::RegisterFunPort(FName CallName, TFunction<RetType(VarTypes...)> InsFun)
 {
 	return MsgQuene->RegisterFunPort<RetType, VarTypes...>(CallName, InsFun);
+}
+
+template<class UserClass>
+FInputAxisBinding& UDDMessage::BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName)
+{
+	return PlayerController->InputComponent->BindAxis(AxisName, UserObj, InMethod);
+}
+
+template<class UserClass>
+FInputTouchBinding& UDDMessage::BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent)
+{
+	return PlayerController->InputComponent->BindTouch(KeyEvent, UserObj, InMethod);
+}
+
+template<class UserClass>
+FInputActionBinding& UDDMessage::BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent)
+{
+	return PlayerController->InputComponent->BindAction(ActionName, KeyEvent, UserObj, InMethod);
+}
+
+template<class UserClass>
+FInputKeyBinding& UDDMessage::BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent)
+{
+	return PlayerController->InputComponent->BindKey(Key, KeyEvent, UserObj, InMethod);
+}
+
+template<class UserClass>
+UDDInputBinder& UDDMessage::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, TArray<FKey>& KeyGroup, FName ObjectName)
+{
+	UDDInputBinder* InputBinder = NewObject<UDDInputBinder>();
+	InputBinder->InitBinder(UserObj, InMethod, KeyGroup.Num());
+	InputBinder->AddToRoot();
+	for (int i = 0;i<KeyGroup.Num();++i)
+	{
+		PlayerController->InputComponent->BindKey(KeyGroup[i], IE_Pressed, InputBinder, &UDDInputBinder::PressEvent).bExecuteWhenPaused = true;
+		PlayerController->InputComponent->BindKey(KeyGroup[i], IE_Released, InputBinder, &UDDInputBinder::ReleaseEvent).bExecuteWhenPaused = true;
+	}
+	if (!BinderGroup.Contains(ObjectName))
+	{
+		TArray<UDDInputBinder*> BinderList;
+		BinderGroup.Add(ObjectName, BinderList);
+	}
+	BinderGroup.Find(ObjectName)->Push(InputBinder);
+	return *InputBinder;
 }

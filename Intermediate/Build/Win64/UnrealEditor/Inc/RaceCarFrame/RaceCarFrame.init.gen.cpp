@@ -21,8 +21,8 @@ void EmptyLinkFunctionForGeneratedCodeRaceCarFrame_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xA6E0EE61,
-				0x1A6CEC5C,
+				0x1133C98F,
+				0x7056C128,
 				METADATA_PARAMS(nullptr, 0)
 			};
 			UECodeGen_Private::ConstructUPackage(ReturnPackage, PackageParams);

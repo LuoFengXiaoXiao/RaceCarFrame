@@ -128,6 +128,42 @@ protected:
 	//关闭对象下所有延时方法
 	void StopAllInvoke();
 
+	// 绑定Axis按键事件
+	template<class UserClass>
+	FInputAxisBinding& BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName);
+
+	// 绑定触摸事件
+	template<class UserClass>
+	FInputTouchBinding& BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent);
+
+	// 绑定Action按键事件
+	template<class UserClass>
+	FInputActionBinding& BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent);
+
+	// 绑定单个按键事件
+	template<class UserClass>
+	FInputKeyBinding& BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent);
+
+	// 绑定多个按键
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod,FKey Key_I,FKey Key_II);
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III);
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III, FKey Key_IV);
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III, FKey Key_IV, FKey Key_V);
+
+	void UnBindInput();
+
+	// 外部方法单纯获取资源链接
+	FWealthUrl* GainWealthUrl(FName WealthName);
+	void GainWealthUrl(FName WealthKind, TArray<FWealthUrl*>& OutUrl);
+
+	// 加载Object类型资源
+	void LoadObjectWealth(FName WealthName, FName FunName);
+	void LoadObjectWealthKind(FName WealthKind, FName FunName);
+
 
 protected:
 
@@ -181,4 +217,70 @@ bool IDDOO::InvokeRepeat(FName InvokeName, float DelayTime, float RepeatTime, Us
 	DDInvokeTask* InvokeTask = new DDInvokeTask(DelayTime, true, RepeatTime);
 	InvokeTask->InvokeEvent.BindUObject(UserObj, InMethod);
 	return IModule->StartInvoke(GetObjectName(), InvokeName, InvokeTask);
+}
+
+template<class UserClass>
+FInputAxisBinding& IDDOO::BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName)
+{
+	return IModule->BindAxis(UserObj, InMethod, AxisName);
+}
+
+template<class UserClass>
+FInputTouchBinding& IDDOO::BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent)
+{
+	return IModule->BindTouch(UserObj, InMethod, KeyEvent);
+}
+
+template<class UserClass>
+FInputActionBinding& IDDOO::BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent)
+{
+	return IModule->BindAction(UserObj, InMethod, ActionName, KeyEvent);
+}
+
+template<class UserClass>
+FInputKeyBinding& IDDOO::BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent)
+{
+	return IModule->BindInput(UserObj, InMethod, Key, KeyEvent);
+}
+
+template<class UserClass>
+UDDInputBinder& IDDOO::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II)
+{
+	TArray<FKey> KeyGroup;
+	KeyGroup.Push(Key_I);
+	KeyGroup.Push(Key_II);
+	return IModule->BindInput(UserObj, InMethod, KeyGroup, GetObjectName());
+}
+
+template<class UserClass>
+UDDInputBinder& IDDOO::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III)
+{
+	TArray<FKey> KeyGroup;
+	KeyGroup.Push(Key_I);
+	KeyGroup.Push(Key_II);
+	KeyGroup.Push(Key_III);
+	return IModule->BindInput(UserObj, InMethod, KeyGroup, GetObjectName());
+}
+
+template<class UserClass>
+UDDInputBinder& IDDOO::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III, FKey Key_IV)
+{
+	TArray<FKey> KeyGroup;
+	KeyGroup.Push(Key_I);
+	KeyGroup.Push(Key_II);
+	KeyGroup.Push(Key_III);
+	KeyGroup.Push(Key_IV);
+	return IModule->BindInput(UserObj, InMethod, KeyGroup, GetObjectName());
+}
+
+template<class UserClass>
+UDDInputBinder& IDDOO::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, FKey Key_I, FKey Key_II, FKey Key_III, FKey Key_IV, FKey Key_V)
+{
+	TArray<FKey> KeyGroup;
+	KeyGroup.Push(Key_I);
+	KeyGroup.Push(Key_II);
+	KeyGroup.Push(Key_III);
+	KeyGroup.Push(Key_IV);
+	KeyGroup.Push(Key_V);
+	return IModule->BindInput(UserObj, InMethod, KeyGroup, GetObjectName());
 }

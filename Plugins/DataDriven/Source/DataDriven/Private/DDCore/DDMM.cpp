@@ -41,3 +41,10 @@ void IDDMM::ExecuteFunction(DDObjectAgreement Agreement, DDParam* Param)
 		IDriver->ExecuteFunction(Agreement, Param);
 	}
 }
+
+UWorld* IDDMM::GetDDWorld() const
+{
+	if (IDriver)
+		return IDriver->GetWorld();
+	return NULL;
+}

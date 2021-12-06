@@ -22,7 +22,9 @@ void ACoroActor::DDEnable()
 	//DDH::Debug()<<"StartCoroutine-->" << StartCoroutine("CoroTestThree", CoroTestThree())<<DDH::Endl();
 
 	//DDStartCoroutine(CoroTestThree());
-	StartCoroutine("CoroFixed", CoroFixed());
+	//StartCoroutine("CoroFixed", CoroFixed());
+	//BindInput(this, &ACoroActor::BKeyEvent, EKeys::B, IE_Pressed);
+	BindInput(this, &ACoroActor::MultiKeyEvent, EKeys::B, EKeys::LeftAlt, EKeys::LeftControl);
 }
 
 void ACoroActor::DDTick(float DeltaSeconds)
@@ -191,6 +193,16 @@ DDCoroTask* ACoroActor::CoroTestThree()
 	// 协程方法主体结束
 #include DDCORO_END()
 
+}
+
+void ACoroActor::MultiKeyEvent()
+{
+	DDH::Debug() << "MultiKeyEvent" << DDH::Endl();
+}
+
+void ACoroActor::BKeyEvent()
+{
+	DDH::Debug() << "BKeyEvent" << DDH::Endl();
 }
 
 DDCoroTask* ACoroActor::CoroFixed()

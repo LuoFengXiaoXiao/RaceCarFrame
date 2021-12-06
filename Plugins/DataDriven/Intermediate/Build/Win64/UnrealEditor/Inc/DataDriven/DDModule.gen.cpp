@@ -18,6 +18,7 @@ void EmptyLinkFunctionForGeneratedCodeDDModule() {}
 	ENGINE_API UClass* Z_Construct_UClass_USceneComponent();
 	UPackage* Z_Construct_UPackage__Script_DataDriven();
 	DATADRIVEN_API UEnum* Z_Construct_UEnum_DataDriven_EAgreementType();
+	DATADRIVEN_API UClass* Z_Construct_UClass_UWealthData_NoRegister();
 // End Cross Module References
 	DEFINE_FUNCTION(UDDModule::execDisableObject)
 	{
@@ -198,10 +199,11 @@ void EmptyLinkFunctionForGeneratedCodeDDModule() {}
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam Class_MetaDataParams[];
 #endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_WealthData_Inner;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_ModuleIndex_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_WealthData_MetaData[];
 #endif
-		static const UECodeGen_Private::FIntPropertyParams NewProp_ModuleIndex;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_WealthData;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -224,15 +226,17 @@ void EmptyLinkFunctionForGeneratedCodeDDModule() {}
 		{ "ModuleRelativePath", "Public/DDCore/DDModule.h" },
 	};
 #endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData_Inner = { "WealthData", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UClass_UWealthData_NoRegister, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDDModule_Statics::NewProp_ModuleIndex_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData_MetaData[] = {
 		{ "Category", "DataDriven" },
 		{ "ModuleRelativePath", "Public/DDCore/DDModule.h" },
 	};
 #endif
-	const UECodeGen_Private::FIntPropertyParams Z_Construct_UClass_UDDModule_Statics::NewProp_ModuleIndex = { "ModuleIndex", nullptr, (EPropertyFlags)0x0010000000020001, UECodeGen_Private::EPropertyGenFlags::Int, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDDModule, ModuleIndex), METADATA_PARAMS(Z_Construct_UClass_UDDModule_Statics::NewProp_ModuleIndex_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDDModule_Statics::NewProp_ModuleIndex_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData = { "WealthData", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UDDModule, WealthData), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData_MetaData)) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UDDModule_Statics::PropPointers[] = {
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDDModule_Statics::NewProp_ModuleIndex,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UDDModule_Statics::NewProp_WealthData,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_UDDModule_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<UDDModule>::IsAbstract,
@@ -261,7 +265,7 @@ void EmptyLinkFunctionForGeneratedCodeDDModule() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UDDModule, 201617395);
+	IMPLEMENT_CLASS(UDDModule, 3313321356);
 	template<> DATADRIVEN_API UClass* StaticClass<UDDModule>()
 	{
 		return UDDModule::StaticClass();

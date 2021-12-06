@@ -3,6 +3,30 @@
 
 #include "DDCore/DDMessage.h"
 
+UDDInputBinder::UDDInputBinder()
+{
+	InputCount = 0;
+	bExecuteWhenPause = false;
+}
+
+void UDDInputBinder::PressEvent()
+{
+	InputCount++;
+	// 如果CurrentCount与InputCount相等，说明所有按键都按下了
+	if (InputCount == TotalCount)
+	{
+		// 如果允许在暂停时执行
+		if (bExecuteWhenPause)
+			InputDele.ExecuteIfBound();
+		else if (!bExecuteWhenPause && !UDDCommon::Get()->IsPauseGame())
+			InputDele.ExecuteIfBound();
+	}
+}
+
+void UDDInputBinder::ReleaseEvent()
+{
+	InputCount--;
+}
 
 
 UDDMessage::UDDMessage()
@@ -20,7 +44,8 @@ void UDDMessage::MessageInit()
 
 void UDDMessage::MessageBeginPlay()
 {
-
+	// 从UDDCommon获取PlayerController
+	PlayerController = UDDCommon::Get()->GetController();
 }
 
 void UDDMessage::MessageTick(float DeltaSeconds)
@@ -139,3 +164,17 @@ void UDDMessage::StopAllInvoke(FName ObjectName)
 		for (TMap<FName, DDInvokeTask*>::TIterator It(*InvokeStack.Find(ObjectName)); It; ++It)
 			It->Value->IsDestory = true;
 }
+
+void UDDMessage::UnBindInput(FName ObjectName)
+{
+	if (!BinderGroup.Contains(ObjectName))
+		return;
+	TArray<UDDInputBinder*> BinderList = *BinderGroup.Find(ObjectName);
+	for (int i = 0;i<BinderList.Num();++i)
+	{
+		BinderList[i]->RemoveFromRoot();
+		BinderList[i]->ConditionalBeginDestroy();
+	}
+	BinderGroup.Remove(ObjectName);
+}
+

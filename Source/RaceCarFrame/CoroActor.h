@@ -207,6 +207,10 @@ protected:
 
 	bool PauseLambuda();
 
+	void BKeyEvent();
+
+	void MultiKeyEvent();
+
 protected:
 	CoroNode TimeNode;
 

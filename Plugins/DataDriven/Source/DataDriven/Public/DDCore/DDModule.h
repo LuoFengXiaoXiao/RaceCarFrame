@@ -92,12 +92,45 @@ public:
 	// 停止对象下的所有延时方法
 	void StopAllInvoke(FName ObjectName);
 
+	// 绑定Axis按键事件
+	template<class UserClass>
+	FInputAxisBinding& BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName);
+
+	// 绑定触摸事件
+	template<class UserClass>
+	FInputTouchBinding& BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent);
+
+	// 绑定Action按键事件
+	template<class UserClass>
+	FInputActionBinding& BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent);
+
+	// 绑定单个按键事件
+	template<class UserClass>
+	FInputKeyBinding& BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent);
+
+	// 绑定多个按键
+	template<class UserClass>
+	UDDInputBinder& BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, TArray<FKey>& KeyGroup, FName ObjectName);
+
+	// 解绑对象的所有按键事件
+	void UnBindInput(FName ObjectName);
+
+	// 外部方法单纯获取资源链接
+	FWealthUrl* GainWealthUrl(FName WealthName);
+	void GainWealthUrl(FName WealthKind, TArray<FWealthUrl*>& OutUrl);
+
+	// 加载Object类型资源
+	void LoadObjectWealth(FName WealthName, FName ObjectName, FName FunName);
+	void LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName FunName);
+
 public:
+
+	UPROPERTY(EditAnywhere, Category = "DataDriven")
+		TArray<UWealthData*> WealthData;
 
 	TArray<UDDModule*> ChildrenModule;
 
-	UPROPERTY(VisibleAnywhere,Category = "DataDriven")
-		int32 ModuleIndex;
+	int32 ModuleIndex;
 
 protected:
 
@@ -142,4 +175,34 @@ template<typename RetType, typename... VarTypes>
 DDFunHandle UDDModule::RegisterFunPort(FName CallName, TFunction<RetType(VarTypes...)> InsFun)
 {
 	return Message->RegisterFunPort<RetType, VarTypes...>(CallName, InsFun);
+}
+
+template<class UserClass>
+FInputAxisBinding& UDDModule::BindAxis(UserClass* UserObj, typename FInputAxisHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName AxisName)
+{
+	return Message->BindAxis(UserObj, InMethod, AxisName);
+}
+
+template<class UserClass>
+FInputTouchBinding& UDDModule::BindTouch(UserClass* UserObj, typename FInputTouchHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const EInputEvent KeyEvent)
+{
+	return Message->BindTouch(UserObj, InMethod, KeyEvent);
+}
+
+template<class UserClass>
+FInputActionBinding& UDDModule::BindAction(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FName ActionName, const EInputEvent KeyEvent)
+{
+	return Message->BindAction(UserObj, InMethod, ActionName, KeyEvent);
+}
+
+template<class UserClass>
+FInputKeyBinding& UDDModule::BindInput(UserClass* UserObj, typename FInputActionHandlerSignature::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, const FKey Key, const EInputEvent KeyEvent)
+{
+	return Message->BindInput(UserObj, InMethod, Key, KeyEvent);
+}
+
+template<class UserClass>
+UDDInputBinder& UDDModule::BindInput(UserClass* UserObj, typename FDDInputEvent::TUObjectMethodDelegate<UserClass>::FMethodPtr InMethod, TArray<FKey>& KeyGroup, FName ObjectName)
+{
+	return Message->BindInput(UserObj, InMethod, KeyGroup, ObjectName);
 }

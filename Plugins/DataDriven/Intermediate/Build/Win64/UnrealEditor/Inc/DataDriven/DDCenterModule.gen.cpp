@@ -73,7 +73,7 @@ void EmptyLinkFunctionForGeneratedCodeDDCenterModule() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UDDCenterModule, 919675105);
+	IMPLEMENT_CLASS(UDDCenterModule, 1871318348);
 	template<> DATADRIVEN_API UClass* StaticClass<UDDCenterModule>()
 	{
 		return UDDCenterModule::StaticClass();

@@ -48,6 +48,8 @@ void UDDModule::ModuleInit()
 
 void UDDModule::ModuleBeginPlay()
 {
+	// 给Wealth指定资源
+	Wealth->AssignData(WealthData);
 	// 调用BeginPlay函数
 	Model->ModelBeginPlay();
 	Message->MessageBeginPlay();
@@ -173,6 +175,31 @@ bool UDDModule::StopInvoke(FName ObjectName, FName InvokeName)
 void UDDModule::StopAllInvoke(FName ObjectName)
 {
 	Message->StopAllInvoke(ObjectName);
+}
+
+void UDDModule::UnBindInput(FName ObjectName)
+{
+	Message->UnBindInput(ObjectName);
+}
+
+FWealthUrl* UDDModule::GainWealthUrl(FName WealthName)
+{
+	return Wealth->GainWealthUrl(WealthName);
+}
+
+void UDDModule::GainWealthUrl(FName WealthKind, TArray<FWealthUrl*>& OutUrl)
+{
+	Wealth->GainWealthUrl(WealthKind, OutUrl);
+}
+
+void UDDModule::LoadObjectWealth(FName WealthName, FName ObjectName, FName FunName)
+{
+	Wealth->LoadObjectWealth(WealthName, ObjectName, FunName);
+}
+
+void UDDModule::LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName FunName)
+{
+	Wealth->LoadObjectWealthKind(WealthKind, ObjectName, FunName);
 }
 
 void UDDModule::ExecuteSelfObject(DDObjectAgreement Agreement, DDParam* Param)
