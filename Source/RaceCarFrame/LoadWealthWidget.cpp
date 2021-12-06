@@ -29,5 +29,20 @@ void ULoadWealthWidget::LoadSingleTexture(FName BackName, UObject* BackWealth)
 
 void ULoadWealthWidget::LoadKindTexture(TArray<FName> BackNames, TArray<UObject*> BackWealths)
 {
+	for (int i = 0; i < BackWealths.Num(); ++i)
+	{
+		DDH::Debug() << BackNames[i] << DDH::Endl();
+		TextureGroup.Push(Cast<UTexture2D>(BackWealths[i]));
+	}
 
+	ImageIndex = 0;
+
+	InvokeRepeat("ChangeImage", 1.f, 1.f, this, &ULoadWealthWidget::ChangeImage);
+}
+
+void ULoadWealthWidget::ChangeImage()
+{
+	ViewImage->SetBrushFromTexture(TextureGroup[ImageIndex]);
+
+	ImageIndex = ImageIndex + 1 >= TextureGroup.Num() ? 0 : ImageIndex + 1;
 }

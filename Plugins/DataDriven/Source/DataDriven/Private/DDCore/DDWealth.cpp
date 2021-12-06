@@ -226,6 +226,8 @@ void UDDWealth::LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName F
 			WealthPaths.Push(UnLoadWealthEntry[i]->WealthPath);
 		// 进行异步加载获取句柄
 		TSharedPtr<FStreamableHandle> WealthHandle = WealthLoader.RequestAsyncLoad(WealthPaths);
+		// 添加新节点到加载序列
+		ObjectKindLoadStack.Push(new ObjectKindLoadNode(WealthHandle,UnLoadWealthEntry,LoadWealthEntry,ObjectName,FunName));
 	}
 }
 

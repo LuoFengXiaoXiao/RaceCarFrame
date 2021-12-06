@@ -26,6 +26,8 @@ public:
 	UFUNCTION()
 		void LoadKindTexture(TArray<FName> BackNames,TArray<UObject*> BackWealths);
 
+	void ChangeImage();
+
 public:
 
 	// 获取蓝图中创建的变量--ViewImage
