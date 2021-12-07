@@ -127,6 +127,9 @@ public:
 	void LoadClassWealth(FName WealthName, FName ObjectName, FName FunName);
 	void LoadClassWealthKind(FName WealthKind, FName ObjectName, FName FunName);
 
+	//创建一个对象实例
+	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName ObjectName, FName FunName, FTransform SpawnTransform);
+
 public:
 
 	UPROPERTY(EditAnywhere, Category = "DataDriven")

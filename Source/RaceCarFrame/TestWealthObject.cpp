@@ -6,9 +6,21 @@
 void UTestWealthObject::DDLoading()
 {
 	Super::DDLoading();
+	IsAllowTickEvent = true;
 
 	//LoadClassWealth("ViewActor1", "LoadActorClass");
 	//LoadClassWealthKind("ViewActor", "LoadKindClass");
+	//BuildSingleClassWealth(EWealthType::Actor, "ViewActor1", "BuildActor", ViewTrans);
+}
+
+void UTestWealthObject::DDTick(float DeltaSeconds)
+{
+	Super::DDTick(DeltaSeconds);
+
+	if (SingleActor)
+	{
+		SingleActor->AddActorWorldRotation(FRotator(1.0f, 0.f, 0.f));
+	}
 }
 
 void UTestWealthObject::LoadActorClass(FName BackName, UClass* BackWealth)
@@ -26,4 +38,10 @@ void UTestWealthObject::LoadKindClass(TArray<FName> BackNames, TArray<UClass*> B
 		DDH::Debug() << BackNames[i] << DDH::Endl();
 		GetDDWorld()->SpawnActor<AActor>(BackWealths[i], ViewTrans.GetLocation()+FVector(offsetValue*i,0.f,0.f),FQuat::Identity.Rotator());
 	}
+}
+
+void UTestWealthObject::BuildActor(FName BackName, AActor* BackActor)
+{
+	DDH::Debug() << BackName << DDH::Endl();
+	SingleActor = BackActor;
 }

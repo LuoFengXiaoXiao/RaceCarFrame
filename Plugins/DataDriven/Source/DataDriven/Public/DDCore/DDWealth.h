@@ -50,6 +50,10 @@ public:
 	void LoadClassWealth(FName WealthName, FName ObjectName, FName FunName);
 	void LoadClassWealthKind(FName WealthKind, FName ObjectName, FName FunName);
 
+	//创建一个对象实例
+	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName ObjectName, FName FunName, FTransform SpawnTransform);
+
+
 protected:
 	// 加载器
 	FStreamableManager WealthLoader;
@@ -92,5 +96,10 @@ protected:
 	// 加载UClass反射回调函数
 	DDOBJFUNC_TWO(BackClassWealth, FName, BackName, UClass*, BackWealth);
 	DDOBJFUNC_TWO(BackClassWealthKind, TArray<FName>, BackNames, TArray<UClass*>, BackWealths);
+
+	// 生成对象反射回调函数
+	DDOBJFUNC_TWO(BackObject, FName, BackName, UObject*, BackObject);
+	DDOBJFUNC_TWO(BackActor, FName, BackName, AActor*,BackActor);
+	DDOBJFUNC_TWO(BackWidget, FName, BackName, UUserWidget*,BackWidget);
 
 };

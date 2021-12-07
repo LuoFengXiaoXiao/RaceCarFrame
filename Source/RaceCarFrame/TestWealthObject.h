@@ -19,11 +19,16 @@ public:
 
 	virtual void DDLoading() override;
 
+	virtual void DDTick(float DeltaSeconds) override;
+
 	UFUNCTION()
 		void LoadActorClass(FName BackName,UClass* BackWealth);
 
 	UFUNCTION()
 		void LoadKindClass(TArray<FName> BackNames,TArray<UClass*> BackWealths);
+
+	UFUNCTION()
+		void BuildActor(FName BackName,AActor* BackActor);
 
 public:
 
@@ -32,4 +37,6 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float offsetValue;
+
+	AActor* SingleActor;
 };

@@ -168,6 +168,10 @@ protected:
 	void LoadClassWealth(FName WealthName, FName FunName);
 	void LoadClassWealthKind(FName WealthKind, FName FunName);
 
+	//创建一个对象实例
+	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName FunName);
+	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName FunName, FTransform SpawnTransform);
+
 protected:
 
 	// 保存自身的UObject

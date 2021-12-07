@@ -62,6 +62,10 @@ struct ClassSingleLoadNode
 	FName ObjectName;
 	// 回调方法名
 	FName FunName;
+	// 生成位置
+	FTransform SpawnTransform;
+	// 是否只加载UClass
+	bool IsLoadClass;
 	// 构造函数
 	ClassSingleLoadNode(TSharedPtr<FStreamableHandle> InWealthHandle, FClassWealthEntry* InWealthEntry, FName InObjectName, FName InFunName)
 	{
@@ -69,6 +73,17 @@ struct ClassSingleLoadNode
 		WealthEntry = InWealthEntry;
 		ObjectName = InObjectName;
 		FunName = InFunName;
+		IsLoadClass = true;
+	}
+	// 构造函数
+	ClassSingleLoadNode(TSharedPtr<FStreamableHandle> InWealthHandle, FClassWealthEntry* InWealthEntry, FName InObjectName, FName InFunName, FTransform InSpawnTransform)
+	{
+		WealthHandle = InWealthHandle;
+		WealthEntry = InWealthEntry;
+		ObjectName = InObjectName;
+		FunName = InFunName;
+		SpawnTransform = InSpawnTransform;
+		IsLoadClass = false;
 	}
 };
 
@@ -383,6 +398,58 @@ void UDDWealth::LoadClassWealthKind(FName WealthKind, FName ObjectName, FName Fu
 	}
 }
 
+void UDDWealth::BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName ObjectName, FName FunName, FTransform SpawnTransform)
+{
+	// 获取对应的资源结构体
+	FClassWealthEntry* WealthEntry = GetClassSingleEntry(WealthName);
+	if (!WealthEntry)
+	{
+		DDH::Debug() << ObjectName << " Get Null Wealth : " << WealthName << DDH::Endl();
+		return;
+	}
+	if (!WealthEntry->WealthPtr.ToSoftObjectPath().IsValid())
+	{
+		DDH::Debug() << ObjectName << " Get UnValid Wealth: " << WealthName << DDH::Endl();
+		return;
+	}
+	// 资源类型是否匹配
+	if (WealthEntry->WealthType != WealthType)
+	{
+		DDH::Debug() << ObjectName << " Get Error Type : " << WealthName << DDH::Endl();
+		return;
+	}
+	// 如果资源已经加载
+	if (WealthEntry->WealthClass)
+	{
+		// 生成并传递对象到请求者
+		if (WealthType == EWealthType::Object)
+		{
+			UObject* InstObject = NewObject<UObject>(this, WealthEntry->WealthClass);
+			InstObject->AddToRoot();
+			BackObject(ModuleIndex, ObjectName, FunName, WealthName, InstObject);
+		}
+		else if (WealthType == EWealthType::Actor)
+		{
+			AActor* InstActor = GetDDWorld()->SpawnActor<AActor>(WealthEntry->WealthClass, SpawnTransform);
+			BackActor(ModuleIndex,ObjectName,FunName,WealthName,InstActor);
+		}
+		else if (WealthType == EWealthType::Widget)
+		{
+			UUserWidget* InstWidget = CreateWidget<UUserWidget>(GetDDWorld(), WealthEntry->WealthClass);
+			// 避免回收
+			GCWidgetGroup.Push(InstWidget);
+			BackWidget(ModuleIndex, ObjectName, FunName, WealthName, InstWidget);
+		}
+	}
+	else
+	{
+		// 异步加载，获取加载句柄
+		TSharedPtr<FStreamableHandle> WealthHandle = WealthLoader.RequestAsyncLoad(WealthEntry->WealthPtr.ToSoftObjectPath());
+		// 创建新加载函数
+		ClassSingleLoadStack.Push(new ClassSingleLoadNode(WealthHandle, WealthEntry, ObjectName, FunName, SpawnTransform));
+	}
+}
+
 FObjectWealthEntry* UDDWealth::GetObjectSingleEntry(FName WealthName)
 {
 	for (int i = 0; i < WealthData.Num(); ++i)
@@ -500,8 +567,35 @@ void UDDWealth::DealClassSingleLoadStack()
 			//ClassSingleLoadStack[i]->WealthEntry->WealthClass = ClassSingleLoadStack[i]->WealthEntry->WealthPtr.ToSoftObjectPath().ResolveObject()->GetClass();
 			ClassSingleLoadStack[i]->WealthEntry->WealthClass =Cast<UClass>(ClassSingleLoadStack[i]->WealthEntry->WealthPtr.ToSoftObjectPath().ResolveObject());
 			//ObjectSingleLoadStack[i]->WealthEntry->WealthObject = ObjectSingleLoadStack[i]->WealthHandle->GetLoadedAsset();
-			// 返回资源给对象
-			BackClassWealth(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, ClassSingleLoadStack[i]->WealthEntry->WealthClass);
+			 
+			if (ClassSingleLoadStack[i]->IsLoadClass)
+			{
+				// 返回资源给对象
+				BackClassWealth(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, ClassSingleLoadStack[i]->WealthEntry->WealthClass);
+			}
+			else
+			{
+				// 生成并传递对象到请求者
+				if (ClassSingleLoadStack[i]->WealthEntry->WealthType == EWealthType::Object)
+				{
+					UObject* InstObject = NewObject<UObject>(this, ClassSingleLoadStack[i]->WealthEntry->WealthClass);
+					InstObject->AddToRoot();
+					BackObject(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, InstObject);
+				}
+				else if (ClassSingleLoadStack[i]->WealthEntry->WealthType == EWealthType::Actor)
+				{
+					AActor* InstActor = GetDDWorld()->SpawnActor<AActor>(ClassSingleLoadStack[i]->WealthEntry->WealthClass, ClassSingleLoadStack[i]->SpawnTransform);
+					BackActor(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, InstActor);
+				}
+				else if (ClassSingleLoadStack[i]->WealthEntry->WealthType == EWealthType::Widget)
+				{
+					UUserWidget* InstWidget = CreateWidget<UUserWidget>(GetDDWorld(), ClassSingleLoadStack[i]->WealthEntry->WealthClass);
+					// 避免回收
+					GCWidgetGroup.Push(InstWidget);
+					BackWidget(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, InstWidget);
+				}
+			}
+
 			// 添加到已经完成的节点序列中
 			CompleteStack.Push(ClassSingleLoadStack[i]);
 		}
