@@ -967,7 +967,7 @@ public:
 
 	// Class资源链接集合
 	UPROPERTY(EditAnywhere)
-		TArray<FClassWealthEntry> ObjectClassData;
+		TArray<FClassWealthEntry> ClassWealthData;
 
 	// 资源链接集合
 	UPROPERTY(EditAnywhere)

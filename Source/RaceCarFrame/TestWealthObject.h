@@ -14,4 +14,22 @@ class RACECARFRAME_API UTestWealthObject : public UDDObject
 {
 	GENERATED_BODY()
 	
+
+public:
+
+	virtual void DDLoading() override;
+
+	UFUNCTION()
+		void LoadActorClass(FName BackName,UClass* BackWealth);
+
+	UFUNCTION()
+		void LoadKindClass(TArray<FName> BackNames,TArray<UClass*> BackWealths);
+
+public:
+
+	UPROPERTY(EditAnywhere)
+		FTransform ViewTrans;
+
+	UPROPERTY(EditAnywhere)
+		float offsetValue;
 };

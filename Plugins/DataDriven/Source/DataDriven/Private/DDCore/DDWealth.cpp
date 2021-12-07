@@ -52,6 +52,49 @@ struct ObjectKindLoadNode
 	}
 };
 
+struct ClassSingleLoadNode
+{
+	// 加载句柄
+	TSharedPtr<FStreamableHandle> WealthHandle;
+	// 资源结构体
+	FClassWealthEntry* WealthEntry;
+	// 请求对象名
+	FName ObjectName;
+	// 回调方法名
+	FName FunName;
+	// 构造函数
+	ClassSingleLoadNode(TSharedPtr<FStreamableHandle> InWealthHandle, FClassWealthEntry* InWealthEntry, FName InObjectName, FName InFunName)
+	{
+		WealthHandle = InWealthHandle;
+		WealthEntry = InWealthEntry;
+		ObjectName = InObjectName;
+		FunName = InFunName;
+	}
+};
+
+struct ClassKindLoadNode
+{
+	// 加载句柄
+	TSharedPtr<FStreamableHandle> WealthHandle;
+	// 没有加载的资源
+	TArray<FClassWealthEntry*> UnLoadWealthEntry;
+	// 已经加载的资源
+	TArray<FClassWealthEntry*> LoadWealthEntry;
+	// 请求对象名
+	FName ObjectName;
+	// 回调方法名
+	FName FunName;
+	// 构造函数
+	ClassKindLoadNode(TSharedPtr<FStreamableHandle> InWealthHandle, TArray<FClassWealthEntry*>& InUnLoadWealthEntry, TArray<FClassWealthEntry*>& InLoadWealthEntry, FName InObjectName, FName InFunName)
+	{
+		WealthHandle = InWealthHandle;
+		UnLoadWealthEntry = InUnLoadWealthEntry;
+		LoadWealthEntry = InLoadWealthEntry;
+		ObjectName = InObjectName;
+		FunName = InFunName;
+	}
+};
+
 void UDDWealth::WealthBeginPlay()
 {
 	// 遍历自动生成对象
@@ -106,6 +149,13 @@ void UDDWealth::WealthBeginPlay()
 				);
 			}
 		}
+#if WITH_EDITOR
+		// 循环设置WealthObject和WealthClass为空,目的在于每次从编辑器启动游戏时资源Asset的状态都重置
+		for (int j = 0; j < WealthData[i]->ObjectWealthData.Num(); ++j)
+			WealthData[i]->ObjectWealthData[j].WealthObject = NULL;
+		for (int j = 0; j < WealthData[i]->ClassWealthData.Num(); ++j)
+			WealthData[i]->ClassWealthData[j].WealthClass = NULL;
+#endif
 	}
 }
 
@@ -113,6 +163,8 @@ void UDDWealth::WealthTick(float DeltaSeconds)
 {
 	DealObjectSingleLoadStack();
 	DealObjectKindLoadStack();
+	DealClassSingleLoadStack();
+	DealClassKindLoadStack();
 }
 
 void UDDWealth::AssignData(TArray<UWealthData*>& InWealthData)
@@ -231,6 +283,106 @@ void UDDWealth::LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName F
 	}
 }
 
+void UDDWealth::LoadClassWealth(FName WealthName, FName ObjectName, FName FunName)
+{
+	// 获取资源结构体
+	FClassWealthEntry* WealthEntry = GetClassSingleEntry(WealthName);
+	if (!WealthEntry)
+	{
+		DDH::Debug() << ObjectName << " Get Null Wealth: " << WealthName << DDH::Endl();
+		return;
+	}
+	// 如果资源不可用
+	// 资源路径没问题，有时会出现失效问题
+	if (!WealthEntry->WealthPtr.ToSoftObjectPath().IsValid())
+	{
+		DDH::Debug() << ObjectName << " Get UnValid Wealth: " << WealthName << DDH::Endl();
+		return;
+	}
+	// 如果资源已经加载--此处有bug，切换了资源之后，还是会读取以前的图片，未清理内存
+	// 直接异步加载会修复该bug，但是会影响性能，想办法判断path是否是正确的即可
+	// 引入新的解决方案，写在BeginPlay中,具体代码如下
+	/*
+	#if WITH_EDITOR
+		// 循环设置WealthObject和WealthClass为空,目的在于每次从编辑器启动游戏时资源Asset的状态都重置
+		for (int j = 0; j < WealthData[i]->ObjectWealthData.Num(); ++j)
+			WealthData[i]->ObjectWealthData[j].WealthObject = NULL;
+		for (int j = 0; j < WealthData[i]->ClassWealthData.Num(); ++j)
+			WealthData[i]->ClassWealthData[j].WealthClass = NULL;
+	#endif
+	*/
+	if (WealthEntry->WealthClass)
+	{
+		// 直接返回已经存在的资源给对象
+		//DDH::Debug() << "Current Object:" << WealthEntry->WealthClass->GetFName() << DDH::Endl();
+		BackClassWealth(ModuleIndex, ObjectName, FunName, WealthName, WealthEntry->WealthClass);
+	}
+	else
+	{
+		// 进行异步加载
+		TSharedPtr<FStreamableHandle> WealthHandle = WealthLoader.RequestAsyncLoad(WealthEntry->WealthPtr.ToSoftObjectPath());
+		// 添加新节点到加载序列
+		ClassSingleLoadStack.Push(new ClassSingleLoadNode(WealthHandle, WealthEntry, ObjectName, FunName));
+		//DDH::Debug() << "New Class:" << WealthEntry->WealthClass->GetFName() << DDH::Endl();
+	}
+}
+
+void UDDWealth::LoadClassWealthKind(FName WealthKind, FName ObjectName, FName FunName)
+{
+	TArray<FClassWealthEntry*> WealthEntryGroup = GetClassKindEntry(WealthKind);
+	// 如果数量为0
+	if (WealthEntryGroup.Num() == 0)
+	{
+		DDH::Debug() << ObjectName << " Get Null Wealth: " << WealthKind << DDH::Endl();
+		return;
+	}
+	// 判断资源可用性
+	for (int i = 0; i < WealthEntryGroup.Num(); ++i)
+	{
+		if (!WealthEntryGroup[i]->WealthPtr.ToSoftObjectPath().IsValid())
+		{
+			DDH::Debug() << ObjectName << " Get Not Valid in kind: " << WealthKind << " For Name : " << WealthEntryGroup[i]->WealthName << DDH::Endl();
+			return;
+		}
+	}
+	// 还没有加载的资源
+	TArray<FClassWealthEntry*> UnLoadWealthEntry;
+	// 已经加载的资源
+	TArray<FClassWealthEntry*> LoadWealthEntry;
+	// 资源加载与否归类
+	for (int i = 0; i < WealthEntryGroup.Num(); ++i)
+	{
+		if (WealthEntryGroup[i]->WealthClass)
+			LoadWealthEntry.Push(WealthEntryGroup[i]);
+		else
+			UnLoadWealthEntry.Push(WealthEntryGroup[i]);
+	}
+	// 如果未加载的资源为0
+	if (UnLoadWealthEntry.Num() == 0)
+	{
+		// 直接获取所有资源给请求对象
+		TArray<FName> NameGroup;
+		TArray<UClass*> WealthGroup;
+		for (int i = 0; i < LoadWealthEntry.Num(); ++i)
+		{
+			NameGroup.Push(LoadWealthEntry[i]->WealthName);
+			WealthGroup.Push(LoadWealthEntry[i]->WealthClass);
+		}
+		BackClassWealthKind(ModuleIndex, ObjectName, FunName, NameGroup, WealthGroup);
+	}
+	else
+	{
+		// 获取未加载资源路径
+		TArray<FSoftObjectPath> WealthPaths;
+		for (int i = 0; i < UnLoadWealthEntry.Num(); ++i)
+			WealthPaths.Push(UnLoadWealthEntry[i]->WealthPtr.ToSoftObjectPath());
+		// 进行异步加载获取句柄
+		TSharedPtr<FStreamableHandle> WealthHandle = WealthLoader.RequestAsyncLoad(WealthPaths);
+		// 添加新节点到加载序列
+		ClassKindLoadStack.Push(new ClassKindLoadNode(WealthHandle, UnLoadWealthEntry, LoadWealthEntry, ObjectName, FunName));
+	}
+}
+
 FObjectWealthEntry* UDDWealth::GetObjectSingleEntry(FName WealthName)
 {
 	for (int i = 0; i < WealthData.Num(); ++i)
@@ -247,6 +399,25 @@ TArray<FObjectWealthEntry*> UDDWealth::GetObjectKindEntry(FName WealthKind)
 		for (int j = 0; j < WealthData[i]->ObjectWealthData.Num(); ++j)
 			if (WealthData[i]->ObjectWealthData[j].WealthKind.IsEqual(WealthKind))
 				WealthGroup.Push(&WealthData[i]->ObjectWealthData[j]);
+	return WealthGroup;
+}
+
+FClassWealthEntry* UDDWealth::GetClassSingleEntry(FName WealthName)
+{
+	for (int i = 0; i < WealthData.Num(); ++i)
+		for (int j = 0; j < WealthData[i]->ClassWealthData.Num(); ++j)
+			if (WealthData[i]->ClassWealthData[j].WealthName.IsEqual(WealthName))
+				return &WealthData[i]->ClassWealthData[j];
+	return NULL;
+}
+
+TArray<FClassWealthEntry*> UDDWealth::GetClassKindEntry(FName WealthKind)
+{
+	TArray<FClassWealthEntry*> WealthGroup;
+	for (int i = 0; i < WealthData.Num(); ++i)
+		for (int j = 0; j < WealthData[i]->ClassWealthData.Num(); ++j)
+			if (WealthData[i]->ClassWealthData[j].WealthKind.IsEqual(WealthKind))
+				WealthGroup.Push(&WealthData[i]->ClassWealthData[j]);
 	return WealthGroup;
 }
 
@@ -312,6 +483,80 @@ void UDDWealth::DealObjectKindLoadStack()
 	for (int i = 0; i < CompleteStack.Num(); ++i)
 	{
 		ObjectKindLoadStack.Remove(CompleteStack[i]);
+		delete CompleteStack[i];
+	}
+}
+
+void UDDWealth::DealClassSingleLoadStack()
+{
+	// 定义加载完成的序列
+	TArray<ClassSingleLoadNode*> CompleteStack;
+	for (int i = 0; i < ClassSingleLoadStack.Num(); ++i)
+	{
+		// 判断是否已经加载完成
+		if (ClassSingleLoadStack[i]->WealthHandle->HasLoadCompleted())
+		{
+			// 设置对应的资源完成,此处也可以通过句柄的方式获取资源
+			//ClassSingleLoadStack[i]->WealthEntry->WealthClass = ClassSingleLoadStack[i]->WealthEntry->WealthPtr.ToSoftObjectPath().ResolveObject()->GetClass();
+			ClassSingleLoadStack[i]->WealthEntry->WealthClass =Cast<UClass>(ClassSingleLoadStack[i]->WealthEntry->WealthPtr.ToSoftObjectPath().ResolveObject());
+			//ObjectSingleLoadStack[i]->WealthEntry->WealthObject = ObjectSingleLoadStack[i]->WealthHandle->GetLoadedAsset();
+			// 返回资源给对象
+			BackClassWealth(ModuleIndex, ClassSingleLoadStack[i]->ObjectName, ClassSingleLoadStack[i]->FunName, ClassSingleLoadStack[i]->WealthEntry->WealthName, ClassSingleLoadStack[i]->WealthEntry->WealthClass);
+			// 添加到已经完成的节点序列中
+			CompleteStack.Push(ClassSingleLoadStack[i]);
+		}
+	}
+	// 销毁已经完成的节点
+	for (int i = 0; i < CompleteStack.Num(); ++i)
+	{
+		ClassSingleLoadStack.Remove(CompleteStack[i]);
+		delete CompleteStack[i];
+	}
+}
+
+void UDDWealth::DealClassKindLoadStack()
+{
+	// 定义加载完成的序列
+	TArray<ClassKindLoadNode*> CompleteStack;
+	for (int i = 0; i < ClassKindLoadStack.Num(); ++i)
+	{
+		// 判断第一次加载完成，WealthHandle已经加载完成，UnloadWealthEntry数量大于0？（小于吧应该）
+		if (ClassKindLoadStack[i]->WealthHandle->HasLoadCompleted() && ClassKindLoadStack[i]->UnLoadWealthEntry.Num() > 0)
+		{
+			// 如果已经加载完成，设置未加载序列的资源指针
+			for (int j = 0;j < ClassKindLoadStack[i]->UnLoadWealthEntry.Num();++j)
+				ClassKindLoadStack[i]->UnLoadWealthEntry[j]->WealthClass = Cast<UClass>(ClassKindLoadStack[i]->UnLoadWealthEntry[j]->WealthPtr.ToSoftObjectPath().ResolveObject());
+			// 将未加载完成序列中的元素填充到已加载资源序列
+			ClassKindLoadStack[i]->LoadWealthEntry.Append(ClassKindLoadStack[i]->UnLoadWealthEntry);
+			// 清空未加载资源的数组
+			ClassKindLoadStack[i]->UnLoadWealthEntry.Empty();
+		}
+
+		// 判断未加载资源是否为0，说明已经加载完成
+		if (ClassKindLoadStack[i]->UnLoadWealthEntry.Num() == 0)
+		{
+			// 加载UClass或者直接生成资源的情况来处理
+
+			// 设置反射函数
+			TArray<FName> NameGroup;
+			TArray<UClass*> WealthGroup;
+
+			// 填充已经加载的资源
+			for (int j = 0; j < ClassKindLoadStack[i]->LoadWealthEntry.Num(); ++j)
+			{
+				NameGroup.Push(ClassKindLoadStack[i]->LoadWealthEntry[j]->WealthName);
+				WealthGroup.Push(ClassKindLoadStack[i]->LoadWealthEntry[j]->WealthClass);
+			}
+			// 返回数据给请求对象
+			BackClassWealthKind(ModuleIndex, ClassKindLoadStack[i]->ObjectName, ClassKindLoadStack[i]->FunName, NameGroup, WealthGroup);
+			// 添加当前节点到已完成序列
+			CompleteStack.Push(ClassKindLoadStack[i]);
+		}
+	}
+	// 销毁已经完成的节点
+	for (int i = 0; i < CompleteStack.Num(); ++i)
+	{
+		ClassKindLoadStack.Remove(CompleteStack[i]);
 		delete CompleteStack[i];
 	}
 }

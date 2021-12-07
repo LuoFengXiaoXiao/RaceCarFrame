@@ -1239,11 +1239,11 @@ static struct FScriptStruct_DataDriven_StaticRegisterNativesFWealthItem
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_ObjectWealthData_MetaData[];
 #endif
 		static const UECodeGen_Private::FArrayPropertyParams NewProp_ObjectWealthData;
-		static const UECodeGen_Private::FStructPropertyParams NewProp_ObjectClassData_Inner;
+		static const UECodeGen_Private::FStructPropertyParams NewProp_ClassWealthData_Inner;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_ObjectClassData_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_ClassWealthData_MetaData[];
 #endif
-		static const UECodeGen_Private::FArrayPropertyParams NewProp_ObjectClassData;
+		static const UECodeGen_Private::FArrayPropertyParams NewProp_ClassWealthData;
 		static const UECodeGen_Private::FStructPropertyParams NewProp_WealthUrl_Inner;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_WealthUrl_MetaData[];
@@ -1312,16 +1312,16 @@ static struct FScriptStruct_DataDriven_StaticRegisterNativesFWealthItem
 	};
 #endif
 	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectWealthData = { "ObjectWealthData", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UWealthData, ObjectWealthData), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectWealthData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectWealthData_MetaData)) };
-	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData_Inner = { "ObjectClassData", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FClassWealthEntry, METADATA_PARAMS(nullptr, 0) };
+	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData_Inner = { "ClassWealthData", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FClassWealthEntry, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData_MetaData[] = {
 		{ "Category", "WealthData" },
 		{ "Comment", "// Class\xe8\xb5\x84\xe6\xba\x90\xe9\x93\xbe\xe6\x8e\xa5\xe9\x9b\x86\xe5\x90\x88\n" },
 		{ "ModuleRelativePath", "Public/DDCommon/DDTypes.h" },
 		{ "ToolTip", "Class\xe8\xb5\x84\xe6\xba\x90\xe9\x93\xbe\xe6\x8e\xa5\xe9\x9b\x86\xe5\x90\x88" },
 	};
 #endif
-	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData = { "ObjectClassData", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UWealthData, ObjectClassData), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData_MetaData)) };
+	const UECodeGen_Private::FArrayPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData = { "ClassWealthData", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Array, RF_Public|RF_Transient|RF_MarkAsNative, 1, STRUCT_OFFSET(UWealthData, ClassWealthData), EArrayPropertyFlags::None, METADATA_PARAMS(Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData_MetaData, UE_ARRAY_COUNT(Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData_MetaData)) };
 	const UECodeGen_Private::FStructPropertyParams Z_Construct_UClass_UWealthData_Statics::NewProp_WealthUrl_Inner = { "WealthUrl", nullptr, (EPropertyFlags)0x0000000000000000, UECodeGen_Private::EPropertyGenFlags::Struct, RF_Public|RF_Transient|RF_MarkAsNative, 1, 0, Z_Construct_UScriptStruct_FWealthUrl, METADATA_PARAMS(nullptr, 0) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UWealthData_Statics::NewProp_WealthUrl_MetaData[] = {
@@ -1342,8 +1342,8 @@ static struct FScriptStruct_DataDriven_StaticRegisterNativesFWealthItem
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_AutoWidgetData,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectWealthData_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectWealthData,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData_Inner,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ObjectClassData,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData_Inner,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_ClassWealthData,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_WealthUrl_Inner,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UWealthData_Statics::NewProp_WealthUrl,
 	};
@@ -1374,7 +1374,7 @@ static struct FScriptStruct_DataDriven_StaticRegisterNativesFWealthItem
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(UWealthData, 2245324848);
+	IMPLEMENT_CLASS(UWealthData, 3499717843);
 	template<> DATADRIVEN_API UClass* StaticClass<UWealthData>()
 	{
 		return UWealthData::StaticClass();

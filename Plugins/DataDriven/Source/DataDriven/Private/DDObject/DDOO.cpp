@@ -285,3 +285,13 @@ void IDDOO::LoadObjectWealthKind(FName WealthKind, FName FunName)
 {
 	IModule->LoadObjectWealthKind(WealthKind, GetObjectName(), FunName);
 }
+
+void IDDOO::LoadClassWealth(FName WealthName, FName FunName)
+{
+	IModule->LoadClassWealth(WealthName, GetObjectName(), FunName);
+}
+
+void IDDOO::LoadClassWealthKind(FName WealthKind, FName FunName)
+{
+	IModule->LoadClassWealthKind(WealthKind, GetObjectName(), FunName);
+}

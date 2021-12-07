@@ -123,6 +123,10 @@ public:
 	void LoadObjectWealth(FName WealthName, FName ObjectName, FName FunName);
 	void LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName FunName);
 
+	// 加载Class类型资源
+	void LoadClassWealth(FName WealthName, FName ObjectName, FName FunName);
+	void LoadClassWealthKind(FName WealthKind, FName ObjectName, FName FunName);
+
 public:
 
 	UPROPERTY(EditAnywhere, Category = "DataDriven")

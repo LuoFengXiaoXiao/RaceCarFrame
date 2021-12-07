@@ -9,6 +9,7 @@
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCore/DDMM.cpp"
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCore/DDModel.cpp"
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCore/DDModule.cpp"
+#include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDCore/DDWealth.cpp"
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDGame/DGCommon.cpp"
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDGame/DGTypes.cpp"
 #include "C:/UE5Pro/RaceCarFrame/Plugins/DataDriven/Source/DataDriven/Private/DDObject/DDActor.cpp"

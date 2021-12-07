@@ -164,6 +164,9 @@ protected:
 	void LoadObjectWealth(FName WealthName, FName FunName);
 	void LoadObjectWealthKind(FName WealthKind, FName FunName);
 
+	// 加载Class类型资源
+	void LoadClassWealth(FName WealthName, FName FunName);
+	void LoadClassWealthKind(FName WealthKind, FName FunName);
 
 protected:
 

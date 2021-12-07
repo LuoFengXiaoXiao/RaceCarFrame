@@ -5,14 +5,11 @@
 			"DataDriven.cpp.obj",
 			"DDCommon.cpp.obj",
 			"DDDefine.cpp.obj",
-			"DDTypes.cpp.obj",
 			"DDCenterModule.cpp.obj",
 			"DDDriver.cpp.obj",
 			"DDMessage.cpp.obj",
 			"DDMM.cpp.obj",
 			"DDModel.cpp.obj",
-			"DDModule.cpp.obj",
-			"DDWealth.cpp.obj",
 			"DGCommon.cpp.obj",
 			"DGTypes.cpp.obj",
 			"DDActor.cpp.obj",
@@ -26,17 +23,19 @@
 			"DDHUD.cpp.obj",
 			"DDLevelScriptActor.cpp.obj",
 			"DDObject.cpp.obj",
-			"DDOO.cpp.obj",
 			"DDPawn.cpp.obj",
 			"DDPlayerCameraManager.cpp.obj",
 			"DDPlayerController.cpp.obj",
 			"DDPlayerState.cpp.obj",
 			"DDSceneComponent.cpp.obj",
 			"DDUserWidget.cpp.obj",
-			"DDWheeledVehiclePawn.cpp.obj"
+			"DDWheeledVehiclePawn.cpp.obj",
+			"DDTypes.cpp.obj",
+			"DDModule.cpp.obj",
+			"DDWealth.cpp.obj",
+			"DDOO.cpp.obj"
 		],
 		"Module.DataDriven.gen.cpp.obj": [
-			"DataDriven.init.gen.cpp.obj",
 			"DDActor.gen.cpp.obj",
 			"DDActorComponent.gen.cpp.obj",
 			"DDAIController.gen.cpp.obj",
@@ -62,12 +61,13 @@
 			"DDPlayerController.gen.cpp.obj",
 			"DDPlayerState.gen.cpp.obj",
 			"DDSceneComponent.gen.cpp.obj",
-			"DDTypes.gen.cpp.obj",
 			"DDUserWidget.gen.cpp.obj",
 			"DDWealth.gen.cpp.obj",
 			"DDWheeledVehiclePawn.gen.cpp.obj",
 			"DGCommon.gen.cpp.obj",
-			"DGTypes.gen.cpp.obj"
+			"DGTypes.gen.cpp.obj",
+			"DataDriven.init.gen.cpp.obj",
+			"DDTypes.gen.cpp.obj"
 		]
 	}
 }

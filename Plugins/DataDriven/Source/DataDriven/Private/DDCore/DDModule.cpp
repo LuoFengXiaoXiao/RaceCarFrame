@@ -202,6 +202,16 @@ void UDDModule::LoadObjectWealthKind(FName WealthKind, FName ObjectName, FName F
 	Wealth->LoadObjectWealthKind(WealthKind, ObjectName, FunName);
 }
 
+void UDDModule::LoadClassWealth(FName WealthName, FName ObjectName, FName FunName)
+{
+	Wealth->LoadClassWealth(WealthName, ObjectName, FunName);
+}
+
+void UDDModule::LoadClassWealthKind(FName WealthKind, FName ObjectName, FName FunName)
+{
+	Wealth->LoadClassWealthKind(WealthKind, ObjectName, FunName);
+}
+
 void UDDModule::ExecuteSelfObject(DDObjectAgreement Agreement, DDParam* Param)
 {
 	// 定义存储目标的组
