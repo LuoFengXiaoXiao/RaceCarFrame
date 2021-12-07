@@ -52,7 +52,8 @@ public:
 
 	//创建一个对象实例
 	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName ObjectName, FName FunName, FTransform SpawnTransform);
-
+	//创建同资源种类名的对象实例, 同种类名下的每个资源链接创建一个对象实例
+	void BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName ObjectName, FName FunName, TArray<FTransform> SpawnTransforms);
 
 protected:
 	// 加载器
@@ -98,8 +99,11 @@ protected:
 	DDOBJFUNC_TWO(BackClassWealthKind, TArray<FName>, BackNames, TArray<UClass*>, BackWealths);
 
 	// 生成对象反射回调函数
-	DDOBJFUNC_TWO(BackObject, FName, BackName, UObject*, BackObject);
-	DDOBJFUNC_TWO(BackActor, FName, BackName, AActor*,BackActor);
-	DDOBJFUNC_TWO(BackWidget, FName, BackName, UUserWidget*,BackWidget);
+	DDOBJFUNC_TWO(BackObjectSingle, FName, BackName, UObject*, BackObject);
+	DDOBJFUNC_TWO(BackObjectKind, TArray<FName>, BackNames, TArray<UObject*>, BackObjects);
+	DDOBJFUNC_TWO(BackActorSingle, FName, BackName, AActor*,BackActor);
+	DDOBJFUNC_TWO(BackActorKind, TArray<FName>, BackNames, TArray<AActor*>, BackActors);
+	DDOBJFUNC_TWO(BackWidgetSingle, FName, BackName, UUserWidget*, BackWidget);
+	DDOBJFUNC_TWO(BackWidgetKind, TArray<FName>, BackNames, TArray<UUserWidget*>, BackWidgets);
 
 };
