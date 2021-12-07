@@ -1,2 +1,0 @@
-C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Intermediate\Build\Win64\UnrealEditor\Development\DataDriven\Definitions.DataDriven.h
-C:\UE5Pro\RaceCarFrame\Plugins\DataDriven\Source\DataDriven\Public\DataDriven.h

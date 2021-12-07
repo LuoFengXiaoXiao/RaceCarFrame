@@ -1,2 +1,0 @@
-C:\UE5Pro\RaceCarFrame\Intermediate\Build\Win64\UnrealEditor\Development\RaceCarFrame\Definitions.RaceCarFrame.h
-C:\UE5Pro\RaceCarFrame\Source\RaceCarFrame\RaceCarFrame.h

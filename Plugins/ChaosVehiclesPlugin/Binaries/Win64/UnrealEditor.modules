@@ -1,8 +1,0 @@
-{
-	"BuildId": "16433597",
-	"Modules": 
-	{
-		"ChaosVehicles": "UnrealEditor-ChaosVehicles.dll",
-		"ChaosVehiclesEditor": "UnrealEditor-ChaosVehiclesEditor.dll"
-	}
-}
