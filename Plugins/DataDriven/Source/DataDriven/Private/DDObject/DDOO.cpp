@@ -305,3 +305,18 @@ void IDDOO::BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FNa
 {
 	IModule->BuildSingleClassWealth(WealthType, WealthName, GetObjectName(), FunName, SpawnTransform);
 }
+
+void IDDOO::BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName)
+{
+	IModule->BuildKindClassWealth(WealthType, WealthKind, GetObjectName(), FunName, TArray<FTransform>{FTransform::Identity});
+}
+
+void IDDOO::BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName, FTransform SpawnTransform)
+{
+	IModule->BuildKindClassWealth(WealthType, WealthKind, GetObjectName(), FunName, TArray<FTransform>{SpawnTransform});
+}
+
+void IDDOO::BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName, TArray<FTransform> SpawnTransforms)
+{
+	IModule->BuildKindClassWealth(WealthType, WealthKind, GetObjectName(), FunName, SpawnTransforms);
+}

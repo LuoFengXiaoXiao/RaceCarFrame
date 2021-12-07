@@ -16,6 +16,7 @@ struct ObjectKindLoadNode;
 // 加载Class节点
 struct ClassSingleLoadNode;
 struct ClassKindLoadNode;
+struct ClassMultiLoadNode;
 
 /**
  * 
@@ -54,6 +55,9 @@ public:
 	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName ObjectName, FName FunName, FTransform SpawnTransform);
 	//创建同资源种类名的对象实例, 同种类名下的每个资源链接创建一个对象实例
 	void BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName ObjectName, FName FunName, TArray<FTransform> SpawnTransforms);
+	//创建多个同资源名的对象实例
+	void BuildMultiClassWealth(EWealthType WealthType, FName WealthName, int32 Amount, FName ObjectName, FName FunName, TArray<FTransform> SpawnTransforms);
+
 
 protected:
 	// 加载器
@@ -71,6 +75,7 @@ protected:
 	TArray<ObjectKindLoadNode*> ObjectKindLoadStack;
 	TArray<ClassSingleLoadNode*> ClassSingleLoadStack;
 	TArray<ClassKindLoadNode*> ClassKindLoadStack;
+	TArray<ClassMultiLoadNode*> ClassMultiLoadStack;
 
 protected:
 	// 获取Object资源结构体
@@ -89,6 +94,8 @@ protected:
 	void DealClassSingleLoadStack();
 	// 处理批量加载Class的方法
 	void DealClassKindLoadStack();
+	// 处理创建多个对象的方法
+	void DealClassMultiLoadStack();
 
 	// 加载UObject反射回调函数
 	DDOBJFUNC_TWO(BackObjectWealth, FName, BackName, UObject*, BackWealth);
@@ -101,9 +108,14 @@ protected:
 	// 生成对象反射回调函数
 	DDOBJFUNC_TWO(BackObjectSingle, FName, BackName, UObject*, BackObject);
 	DDOBJFUNC_TWO(BackObjectKind, TArray<FName>, BackNames, TArray<UObject*>, BackObjects);
+	DDOBJFUNC_TWO(BackObjectMulti, FName, BackName, TArray<UObject*>, BackObjects);
+
 	DDOBJFUNC_TWO(BackActorSingle, FName, BackName, AActor*,BackActor);
 	DDOBJFUNC_TWO(BackActorKind, TArray<FName>, BackNames, TArray<AActor*>, BackActors);
+	DDOBJFUNC_TWO(BackActorMulti, FName, BackName, TArray<AActor*>, BackActors);
+
 	DDOBJFUNC_TWO(BackWidgetSingle, FName, BackName, UUserWidget*, BackWidget);
 	DDOBJFUNC_TWO(BackWidgetKind, TArray<FName>, BackNames, TArray<UUserWidget*>, BackWidgets);
+	DDOBJFUNC_TWO(BackWidgetMulti, FName, BackName, TArray<UUserWidget*>, BackWidgets);
 
 };

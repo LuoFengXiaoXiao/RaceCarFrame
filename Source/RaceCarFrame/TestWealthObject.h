@@ -30,6 +30,9 @@ public:
 	UFUNCTION()
 		void BuildActor(FName BackName,AActor* BackActor);
 
+	UFUNCTION()
+		void BuildActorKind(TArray<FName> BackNames,TArray<AActor*> BackActors);
+
 public:
 
 	UPROPERTY(EditAnywhere)
@@ -39,4 +42,5 @@ public:
 		float offsetValue;
 
 	AActor* SingleActor;
+	TArray<AActor*> KindActors;
 };

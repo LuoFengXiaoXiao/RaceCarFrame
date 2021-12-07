@@ -217,6 +217,11 @@ void UDDModule::BuildSingleClassWealth(EWealthType WealthType, FName WealthName,
 	Wealth->BuildSingleClassWealth(WealthType, WealthName, ObjectName, FunName, SpawnTransform);
 }
 
+void UDDModule::BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName ObjectName, FName FunName, TArray<FTransform> SpawnTransforms)
+{
+	Wealth->BuildKindClassWealth(WealthType, WealthKind, ObjectName, FunName, SpawnTransforms);
+}
+
 void UDDModule::ExecuteSelfObject(DDObjectAgreement Agreement, DDParam* Param)
 {
 	// 定义存储目标的组
