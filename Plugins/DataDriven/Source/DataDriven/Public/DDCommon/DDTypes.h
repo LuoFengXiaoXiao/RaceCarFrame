@@ -7,6 +7,7 @@
 
 #include "Engine/GameEngine.h"
 #include <Engine/DataAsset.h>
+#include <Widgets/Layout/Anchors.h>
 
 #include "DDTypes.generated.h"
 
@@ -975,3 +976,83 @@ public:
 };
 
 #pragma  endregion
+
+#pragma region UIFrame
+
+//布局类型
+UENUM()
+enum class ELayoutType : uint8 {
+	Canvas,     //对应CanvasPanel
+	Overlay,	//对应Overlay
+};
+
+//UI层级类型, 自己动态添加, 一般6层够用了
+UENUM()
+enum class ELayoutLevel : uint8
+{
+	Level_0 = 0,
+	Level_1,
+	Level_2,
+	Level_3,
+	Level_All,//这个层级会隐藏所有ShowGroup的对象
+};
+
+
+//面板类型
+UENUM()
+enum class EPanelShowType : uint8 {
+	DoNothing,   //不影响其他面板
+	HideOther,   //隐藏其他
+	Reverse,     //反向切换
+};
+
+//弹窗遮罩透明度
+UENUM()
+enum class EPanelLucenyType : uint8 {
+	Lucency,        //全透明, 不能穿透
+	Translucence,   //半透明，不能穿透
+	ImPenetrable,   //低透明度，不能穿透
+	Pentrate,       //全透明, 可以穿透
+};
+
+//面板属性
+USTRUCT()
+struct FUINature
+{
+	GENERATED_BODY()
+
+public:
+
+	// 布局类型
+	UPROPERTY(EditAnywhere)
+		ELayoutType LayoutType;
+
+	// UI层级，给HideOther类型的面板使用，指定影响的范围
+	UPROPERTY(EditAnywhere)
+		ELayoutLevel LayoutLevel;
+
+	// 面板类型
+	UPROPERTY(EditAnywhere)
+		EPanelShowType PanelShowType;
+
+	// 弹窗遮罩透明度
+	UPROPERTY(EditAnywhere)
+		EPanelLucenyType PanelLucenyType;
+
+	// Canvas锚点
+	UPROPERTY(EditAnywhere)
+		FAnchors Anchors;
+
+	// Canvas的offset（pos，size），overlay的padding
+	UPROPERTY(EditAnywhere)
+		FMargin Offsets;
+
+	// Overlay的水平布局
+	UPROPERTY(EditAnywhere)
+		TEnumAsByte<EHorizontalAlignment> HAlign;
+
+	// Overlay的垂直布局
+	UPROPERTY(EditAnywhere)
+		TEnumAsByte<EVerticalAlignment> VAlign;
+};
+#pragma endregion

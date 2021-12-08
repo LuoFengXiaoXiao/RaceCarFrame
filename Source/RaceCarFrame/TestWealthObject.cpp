@@ -20,7 +20,7 @@ void UTestWealthObject::DDLoading()
 	//BuildKindClassWealth(EWealthType::Actor, "ViewActor", "BuildActorKind", SpawnTransforms);
 	//BuildMultiClassWealth(EWealthType::Actor, "ViewActor2", 3 , "BuildActorMulti",SpawnTransforms);
 
-	StartCoroutine("BuildObjectTest", BuildObjectTest());
+	//StartCoroutine("BuildObjectTest", BuildObjectTest());
 }
 
 void UTestWealthObject::DDTick(float DeltaSeconds)
