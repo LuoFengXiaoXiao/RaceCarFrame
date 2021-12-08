@@ -12,12 +12,13 @@ void UTestWealthObject::DDLoading()
 	//LoadClassWealthKind("ViewActor", "LoadKindClass");
 	//BuildSingleClassWealth(EWealthType::Actor, "ViewActor1", "BuildActor", ViewTrans);
 
-	//TArray<FTransform> SpawnTransforms;
-	//for (int i = 0;i<3;++i)
-	//{
-	//	SpawnTransforms.Push(FTransform(ViewTrans.GetLocation() + FVector(0.f, offsetValue * i, 0.f)));
-	//}
+	TArray<FTransform> SpawnTransforms;
+	for (int i = 0; i < 3; ++i)
+	{
+		SpawnTransforms.Push(FTransform(ViewTrans.GetLocation() + FVector(0.f, offsetValue * i, 0.f)));
+	}
 	//BuildKindClassWealth(EWealthType::Actor, "ViewActor", "BuildActorKind", SpawnTransforms);
+	BuildMultiClassWealth(EWealthType::Actor, "ViewActor2", 3 , "BuildActorMulti",SpawnTransforms);
 }
 
 void UTestWealthObject::DDTick(float DeltaSeconds)
@@ -61,5 +62,11 @@ void UTestWealthObject::BuildActorKind(TArray<FName> BackNames, TArray<AActor*> 
 {
 	for (int i = 0;i<BackNames.Num();++i)
 		DDH::Debug() << BackNames[i] << DDH::Endl();
+	KindActors = BackActors;
+}
+
+void UTestWealthObject::BuildActorMulti(FName BackName, TArray<AActor*> BackActors)
+{
+	DDH::Debug() << BackName << DDH::Endl();
 	KindActors = BackActors;
 }

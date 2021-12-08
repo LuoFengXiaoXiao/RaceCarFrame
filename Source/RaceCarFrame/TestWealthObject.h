@@ -33,6 +33,9 @@ public:
 	UFUNCTION()
 		void BuildActorKind(TArray<FName> BackNames,TArray<AActor*> BackActors);
 
+	UFUNCTION()
+		void BuildActorMulti(FName BackName, TArray<AActor*> BackActors);
+
 public:
 
 	UPROPERTY(EditAnywhere)

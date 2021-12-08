@@ -173,11 +173,12 @@ protected:
 	void BuildSingleClassWealth(EWealthType WealthType, FName WealthName, FName FunName, FTransform SpawnTransform);
 	//创建同资源种类名的对象实例, 同种类名下的每个资源链接创建一个对象实例
 	void BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName);
-	//创建同资源种类名的对象实例, 同种类名下的每个资源链接创建一个对象实例
 	void BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName, FTransform SpawnTransform);
-	//创建同资源种类名的对象实例, 同种类名下的每个资源链接创建一个对象实例
 	void BuildKindClassWealth(EWealthType WealthType, FName WealthKind, FName FunName, TArray<FTransform> SpawnTransforms);
-
+	//创建多个同资源名的对象实例
+	void BuildMultiClassWealth(EWealthType WealthType, FName WealthName, int32 Amount, FName FunName);
+	void BuildMultiClassWealth(EWealthType WealthType, FName WealthName, int32 Amount, FName FunName, FTransform SpawnTransform);
+	void BuildMultiClassWealth(EWealthType WealthType, FName WealthName, int32 Amount, FName FunName, TArray<FTransform> SpawnTransforms);
 
 protected:
 
