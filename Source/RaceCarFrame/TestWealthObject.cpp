@@ -19,6 +19,8 @@ void UTestWealthObject::DDLoading()
 	}
 	//BuildKindClassWealth(EWealthType::Actor, "ViewActor", "BuildActorKind", SpawnTransforms);
 	//BuildMultiClassWealth(EWealthType::Actor, "ViewActor2", 3 , "BuildActorMulti",SpawnTransforms);
+
+	StartCoroutine("BuildObjectTest", BuildObjectTest());
 }
 
 void UTestWealthObject::DDTick(float DeltaSeconds)
@@ -69,4 +71,51 @@ void UTestWealthObject::BuildActorMulti(FName BackName, TArray<AActor*> BackActo
 {
 	DDH::Debug() << BackName << DDH::Endl();
 	KindActors = BackActors;
+}
+
+void UTestWealthObject::BuildSingleObject(FName BackName, UObject* BackObject)
+{
+	DDH::Debug() << "BuildSingleObject-->" << BackName << DDH::Endl();
+	IDDOO* InstPtr = Cast<IDDOO>(BackObject);
+	if (InstPtr)
+		InstPtr->RegisterToModule(ModuleIndex);
+}
+
+void UTestWealthObject::BuildKindObject(TArray<FName> BackNames, TArray<UObject*> BackObjects)
+{
+	for (int i = 0;i<BackObjects.Num();++i)
+	{
+		DDH::Debug() << "BuildKindObject-->" << BackNames[i] << DDH::Endl();
+		IDDOO* InstPtr = Cast<IDDOO>(BackObjects[i]);
+		if (InstPtr)
+			InstPtr->RegisterToModule(ModuleIndex);
+	}
+}
+
+void UTestWealthObject::BuildMultiObject(FName BackName, TArray<UObject*> BackObjects)
+{
+	DDH::Debug() << "BuildMultiObject-->" << BackName << DDH::Endl();
+	for (int i = 0; i < BackObjects.Num(); ++i)
+	{
+		IDDOO* InstPtr = Cast<IDDOO>(BackObjects[i]);
+		if (InstPtr)
+			InstPtr->RegisterToModule(ModuleIndex);
+	}
+}
+
+DDCoroTask* UTestWealthObject::BuildObjectTest()
+{
+	DDCORO_PARAM(UTestWealthObject)
+#include DDCORO_BEGIN()
+
+	D->BuildSingleClassWealth(EWealthType::Object, "ViewObject2", "BuildSingleObject");
+
+#include DDYIELD_READY()
+		DDYIELD_RETURN_SECOND(10.f);
+		D->BuildKindClassWealth(EWealthType::Object, "ViewObject", "BuildKindObject");
+#include DDYIELD_READY()
+	DDYIELD_RETURN_SECOND(10.f);
+	D->BuildMultiClassWealth(EWealthType::Object, "ViewObject3", 3, "BuildMultiObject");
+
+#include DDCORO_END()
 }

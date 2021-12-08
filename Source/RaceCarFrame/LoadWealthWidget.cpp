@@ -17,7 +17,7 @@ void ULoadWealthWidget::DDLoading()
 
 	//LoadObjectWealth("ViewImage1", "LoadSingleTexture");
 	//LoadObjectWealthKind("ViewImage", "LoadKindTexture");
-	StartCoroutine("BuildWidgetTest", BuildWidgetTest());
+	//StartCoroutine("BuildWidgetTest", BuildWidgetTest());
 }
 
 void ULoadWealthWidget::LoadSingleTexture(FName BackName, UObject* BackWealth)
