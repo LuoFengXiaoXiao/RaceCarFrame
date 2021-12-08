@@ -7,6 +7,7 @@
 #include "LoadWealthWidget.generated.h"
 
 class UImage;
+class USizeBox;
 /**
  * 
  */
@@ -22,17 +23,31 @@ public:
 
 	UFUNCTION()
 		void LoadSingleTexture(FName BackName,UObject* BackWealth);
-
 	UFUNCTION()
 		void LoadKindTexture(TArray<FName> BackNames,TArray<UObject*> BackWealths);
 
 	void ChangeImage();
+
+	UFUNCTION()
+		void BuildSingleWidget(FName BackName,UUserWidget* BackWidget);
+	UFUNCTION()
+		void BuildKindWidget(TArray<FName> BackNames,TArray<UUserWidget*> BackWidgets);
+	UFUNCTION()
+		void BuildMultiWidget(FName BackName, TArray<UUserWidget*> BackWidgets);
+
+	DDCoroTask* BuildWidgetTest();
 
 public:
 
 	// 获取蓝图中创建的变量--ViewImage
 	UPROPERTY(meta = (BindWidget))
 		UImage* ViewImage;
+	UPROPERTY(meta = (BindWidget))
+		USizeBox* SizeBox_1;
+	UPROPERTY(meta = (BindWidget))
+		USizeBox* SizeBox_2;
+	UPROPERTY(meta = (BindWidget))
+		USizeBox* SizeBox_3;
 
 	int32 ImageIndex;
 

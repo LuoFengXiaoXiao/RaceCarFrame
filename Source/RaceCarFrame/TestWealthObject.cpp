@@ -18,7 +18,7 @@ void UTestWealthObject::DDLoading()
 		SpawnTransforms.Push(FTransform(ViewTrans.GetLocation() + FVector(0.f, offsetValue * i, 0.f)));
 	}
 	//BuildKindClassWealth(EWealthType::Actor, "ViewActor", "BuildActorKind", SpawnTransforms);
-	BuildMultiClassWealth(EWealthType::Actor, "ViewActor2", 3 , "BuildActorMulti",SpawnTransforms);
+	//BuildMultiClassWealth(EWealthType::Actor, "ViewActor2", 3 , "BuildActorMulti",SpawnTransforms);
 }
 
 void UTestWealthObject::DDTick(float DeltaSeconds)

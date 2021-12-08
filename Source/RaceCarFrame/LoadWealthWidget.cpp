@@ -3,6 +3,7 @@
 
 #include "LoadWealthWidget.h"
 #include "Components/Image.h"
+#include "Components/SizeBox.h"
 
 void ULoadWealthWidget::DDInit()
 {
@@ -16,6 +17,7 @@ void ULoadWealthWidget::DDLoading()
 
 	//LoadObjectWealth("ViewImage1", "LoadSingleTexture");
 	//LoadObjectWealthKind("ViewImage", "LoadKindTexture");
+	StartCoroutine("BuildWidgetTest", BuildWidgetTest());
 }
 
 void ULoadWealthWidget::LoadSingleTexture(FName BackName, UObject* BackWealth)
@@ -45,4 +47,56 @@ void ULoadWealthWidget::ChangeImage()
 	ViewImage->SetBrushFromTexture(TextureGroup[ImageIndex]);
 
 	ImageIndex = ImageIndex + 1 >= TextureGroup.Num() ? 0 : ImageIndex + 1;
+}
+
+void ULoadWealthWidget::BuildSingleWidget(FName BackName, UUserWidget* BackWidget)
+{
+	DDH::Debug() << "BuildSingleWidget" << "-->" << BackName << DDH::Endl();
+	SizeBox_1->ClearChildren();
+	SizeBox_1->AddChild(BackWidget);
+}
+
+void ULoadWealthWidget::BuildKindWidget(TArray<FName> BackNames, TArray<UUserWidget*> BackWidgets)
+{
+	for (int i = 0;i<BackWidgets.Num();++i)
+	{
+		DDH::Debug() << "BuildKindWidget" << "-->" << BackNames[i] << DDH::Endl();
+	}
+	SizeBox_1->ClearChildren();
+	SizeBox_2->ClearChildren();
+	SizeBox_3->ClearChildren();
+	SizeBox_1->AddChild(BackWidgets[0]);
+	SizeBox_2->AddChild(BackWidgets[1]);
+	SizeBox_3->AddChild(BackWidgets[2]);
+}
+
+void ULoadWealthWidget::BuildMultiWidget(FName BackName, TArray<UUserWidget*> BackWidgets)
+{
+	DDH::Debug() << "BuildMultiWidget" << "-->" << BackName << DDH::Endl();
+	SizeBox_1->ClearChildren();
+	SizeBox_2->ClearChildren();
+	SizeBox_3->ClearChildren();
+	SizeBox_1->AddChild(BackWidgets[0]);
+	SizeBox_2->AddChild(BackWidgets[1]);
+	SizeBox_3->AddChild(BackWidgets[2]);
+}
+
+DDCoroTask* ULoadWealthWidget::BuildWidgetTest()
+{
+	DDCORO_PARAM(ULoadWealthWidget)
+
+#include DDCORO_BEGIN()
+
+		D->BuildSingleClassWealth(EWealthType::Widget, "ViewWidget2", "BuildSingleWidget");
+
+#include DDYIELD_READY()
+		DDYIELD_RETURN_SECOND(10.f);
+
+		D->BuildKindClassWealth(EWealthType::Widget, "ViewWidget", "BuildKindWidget");
+
+#include DDYIELD_READY()
+	DDYIELD_RETURN_SECOND(10.f);
+	D->BuildMultiClassWealth(EWealthType::Widget, "ViewWidget1", 3, "BuildMultiWidget");
+
+#include DDCORO_END()
 }
