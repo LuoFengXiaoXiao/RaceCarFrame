@@ -22,17 +22,53 @@ class DATADRIVEN_API UDDFrameWidget : public UDDUserWidget
 public:
 	virtual bool Initialize() override;
 
+	// 提前加载到内存,但是不显示
+	UFUNCTION()
+		void AdvanceLoadPanel(FName PanelName);
+	// 直接显示UI
+	UFUNCTION()
+		void ShowUIPanel(FName PanelName);
+
+	// 提前加载面板回调函数
+	UFUNCTION()
+		void AcceptAdvancePanel(FName BackName,UUserWidget* BackWidget);
+	// 显示时加载回调函数,直接显示
+	UFUNCTION()
+		void AcceptPanelWidget(FName BackName,UUserWidget* BackWidget);
+
+protected:
+
+	// 执行进入UI
+	void DoEnterUIPanel(FName PanelName);
+
+	// 执行显示UI
+	void DoShowUIPanel(FName PanelName);
+
+	// 进入界面，第一次
+	void EnterPanelDoNothing(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
+	void EnterPanelDoNothing(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
+
+	void EnterPanelHideOther(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
+	void EnterPanelHideOther(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
+
+	void EnterPanelReverse(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
+	void EnterPanelReverse(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
+
 protected:
 	// 根节点
 	UCanvasPanel* RootCanvas;
 
 	// 保存Overlay的控件
-	TArray<UOverlay*> ActiveOverlay;
-	TArray<UOverlay*> UnActiveOverlay;
+	UPROPERTY()
+		TArray<UOverlay*> ActiveOverlay;
+	UPROPERTY()
+		TArray<UOverlay*> UnActiveOverlay;
 
 	// 保存Cavnas的控件
-	TArray<UCanvasPanel*> ActivePanel;
-	TArray<UCanvasPanel*> UnActivePanel;
+	UPROPERTY()
+		TArray<UCanvasPanel*> ActiveCanvas;
+	UPROPERTY()
+		TArray<UCanvasPanel*> UnActiveCanvas;
 
 	// 所有UI面板，键FName必须时该面板注册到框架的ObjectName
 	TMap<FName, UDDPanelWidget*> AllPanelGroup;
