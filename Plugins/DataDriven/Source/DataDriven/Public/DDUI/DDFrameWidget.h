@@ -44,6 +44,9 @@ protected:
 	// 执行显示UI
 	void DoShowUIPanel(FName PanelName);
 
+	// 等待显示面板,正在预加载但是收到显示到界面命令时，进行循环检测是否加载完毕，加载完毕则进行显示
+	void WaitShowPanel();
+
 	// 进入界面，第一次
 	void EnterPanelDoNothing(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
 	void EnterPanelDoNothing(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
@@ -82,6 +85,8 @@ protected:
 	// 已经加载过的UI面板的名字,避免重复加载
 	TArray<FName> LoadedPanelName;
 
+	// 正在提前加载但是已经收到显示命令的界面名，简称预显示组
+	TArray<FName> WaitShowPanelName;
 
 	// 遮罩图片,声明为UPROPERTY也可以避免资源回收
 	UPROPERTY()
@@ -95,4 +100,6 @@ protected:
 	// 不透明
 	FLinearColor ImPenetrableLucency;
 
+	// 保存循环检测加载完毕则显示方法的延时循环任务名字
+	FName WaitShowTaskName;
 };

@@ -7,6 +7,8 @@
 #include <Components/Image.h>
 #include <Blueprint/WidgetTree.h>
 #include "DDUI/DDPanelWidget.h"
+#include <Components/OverlaySlot.h>
+#include <Components/Overlay.h>
 
 bool UDDFrameWidget::Initialize()
 {
@@ -23,6 +25,8 @@ bool UDDFrameWidget::Initialize()
 	NormalLucency = FLinearColor(1.0f, 1.0f, 1.0f, 0.f);
 	TranslucenceLucency = FLinearColor(0.0f, 0.0f, 0.0f, 0.6f);
 	ImPenetrableLucency = FLinearColor(0.0f, 0.0f, 0.0f, 0.3f);
+
+	WaitShowTaskName = FName("WaitShowTaskName");
 
 	return true;
 }
@@ -50,6 +54,17 @@ void UDDFrameWidget::ShowUIPanel(FName PanelName)
 		LoadedPanelName.Push(PanelName);
 		return;
 	}
+
+	// 如果预加载未完成，就调用显示命令，启动循环检测函数，检测到预加载完成的时候，显示UI面板
+	if (!AllPanelGroup.Contains(PanelName) && !LoadedPanelName.Contains(PanelName) && !WaitShowPanelName.Contains(PanelName))
+	{
+		// 添加名字到预显示组
+		WaitShowPanelName.Push(PanelName);
+		// 启动循环检测加载函数，加载完毕则显示函数，每0.3s检测一次
+		InvokeRepeat(WaitShowTaskName, 0.3f, 0.3f, this, &UDDFrameWidget::WaitShowPanel);
+		return;
+	}
+
 	// 如果存在UI面板
 	if (AllPanelGroup.Contains(PanelName))
 	{
@@ -104,27 +119,10 @@ void UDDFrameWidget::DoEnterUIPanel(FName PanelName)
 	{
 		// 获取布局控件，父控件
 		UCanvasPanel* WorkLayout = NULL;
+		// 判断最底层的布局控件是否是Canvas
 		if (RootCanvas->GetChildrenCount()>0)
-		{
-			// 判断最底层的布局控件是否是Canvas
 			WorkLayout = Cast<UCanvasPanel>(RootCanvas->GetChildAt(RootCanvas->GetChildrenCount() - 1));
-			if (!WorkLayout)
-			{
-				if (UnActiveCanvas.Num() == 0)
-				{
-					WorkLayout = WidgetTree->ConstructWidget<UCanvasPanel>(UCanvasPanel::StaticClass());
-					WorkLayout->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
-					UCanvasPanelSlot* FrameCanvasSlot = RootCanvas->AddChildToCanvas(WorkLayout);
-					// 设置新增的Canvas的布局为平铺
-					FrameCanvasSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
-					FrameCanvasSlot->SetOffsets(FMargin(0.f, 0.f, 0.f, 0.f));
-				}
-				else
-					WorkLayout = UnActiveCanvas.Pop();
-				ActiveCanvas.Push(WorkLayout);
-			}
-		}
-		else
+		if (!WorkLayout)
 		{
 			if (UnActiveCanvas.Num() == 0)
 			{
@@ -154,7 +152,37 @@ void UDDFrameWidget::DoEnterUIPanel(FName PanelName)
 	}
 	else
 	{
-
+		UOverlay* WorkLayout = NULL;
+		// 如果存在布局控件，试图把最后一个布局控件转换成Overlay
+		if (RootCanvas->GetChildrenCount()>0)
+			WorkLayout = Cast<UOverlay>(RootCanvas->GetChildAt(RootCanvas->GetChildrenCount() - 1));
+		if (!WorkLayout)
+		{
+			if (UnActiveOverlay.Num() == 0)
+			{
+				WorkLayout = WidgetTree->ConstructWidget<UOverlay>(UOverlay::StaticClass());
+				WorkLayout->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
+				UCanvasPanelSlot* FrameCanvasSlot = RootCanvas->AddChildToCanvas(WorkLayout);
+				// 设置新增的Canvas的布局为平铺
+				FrameCanvasSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
+				FrameCanvasSlot->SetOffsets(FMargin(0.f, 0.f, 0.f, 0.f));
+			}
+			else
+				WorkLayout = UnActiveOverlay.Pop();
+			ActiveOverlay.Push(WorkLayout);
+		}
+		switch (PanelWidget->UINature.PanelShowType)
+		{
+		case EPanelShowType::DoNothing:
+			EnterPanelDoNothing(WorkLayout, PanelWidget);
+			break;
+		case EPanelShowType::HideOther:
+			EnterPanelHideOther(WorkLayout, PanelWidget);
+			break;
+		case EPanelShowType::Reverse:
+			EnterPanelReverse(WorkLayout, PanelWidget);
+			break;
+		}
 	}
 }
 
@@ -163,14 +191,52 @@ void UDDFrameWidget::DoShowUIPanel(FName PanelName)
 
 }
 
+void UDDFrameWidget::WaitShowPanel()
+{
+	TArray<FName> CompleteName;
+	for (int i = 0;WaitShowPanelName.Num();++i)
+	{
+		if (AllPanelGroup.Contains(WaitShowPanelName[i]))
+		{
+			// 执行进入界面的方法
+			DoEnterUIPanel(WaitShowPanelName[i]);
+			// 添加到完成组
+			CompleteName.Push(WaitShowPanelName[i]);
+		}
+	}
+	// 移除完成的UI
+	for (int i = 0; i < CompleteName.Num(); ++i)
+		WaitShowPanelName.Remove(WaitShowPanelName[i]);
+	// 如果没有等待显示的UI了，停止该循环
+	if (WaitShowPanelName.Num() == 0)
+		StopInvoke(WaitShowTaskName);
+}
+
 void UDDFrameWidget::EnterPanelDoNothing(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 添加UI面板到父控件
+	UCanvasPanelSlot* PanelSlot = WorkLayout->AddChildToCanvas(PanelWidget);
+	PanelSlot->SetAnchors(PanelWidget->UINature.Anchors);
+	PanelSlot->SetOffsets(PanelWidget->UINature.Offsets);
 
+	// 把UI面板添加到显示组,UI面板的GetObjectName(),PanelName,资源系统下的WealthName必须一致
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+	// 调用UI面板的进入界面生命周期
+	PanelWidget->PanelEnter();
 }
 
 void UDDFrameWidget::EnterPanelDoNothing(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 添加UI面板到Overlay布局
+	UOverlaySlot* PanelSlot = WorkLayout->AddChildToOverlay(PanelWidget);
+	PanelSlot->SetPadding(PanelWidget->UINature.Offsets);
+	PanelSlot->SetHorizontalAlignment(PanelWidget->UINature.HAlign);
+	PanelSlot->SetVerticalAlignment(PanelWidget->UINature.VAlign);
 
+	// 把UI面板添加到显示组,UI面板的GetObjectName(),PanelName,资源系统下的WealthName必须一致
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+	// 调用UI面板的进入界面生命周期
+	PanelWidget->PanelEnter();
 }
 
 void UDDFrameWidget::EnterPanelHideOther(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget)

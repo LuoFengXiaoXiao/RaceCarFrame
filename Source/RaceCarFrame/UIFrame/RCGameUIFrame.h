@@ -14,4 +14,6 @@ class RACECARFRAME_API URCGameUIFrame : public UDDFrameWidget
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void DDInit() override;
 };
