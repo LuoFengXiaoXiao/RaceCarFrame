@@ -112,6 +112,30 @@ void UDDFrameWidget::AcceptPanelWidget(FName BackName, UUserWidget* BackWidget)
 	DoEnterUIPanel(BackName);
 }
 
+void UDDFrameWidget::ExitCallBack(ELayoutType LayoutType, UPanelWidget* InLayout)
+{
+	if (LayoutType == ELayoutType::Canvas)
+	{
+		UCanvasPanel* WorkLayout = Cast<UCanvasPanel>(InLayout);
+		if (WorkLayout->GetChildrenCount() == 0)
+		{
+			WorkLayout->RemoveFromParent();
+			ActiveCanvas.Remove(WorkLayout);
+			UnActiveCanvas.Push(WorkLayout);
+		}
+	}
+	else
+	{
+		UOverlay* WorkLayout = Cast<UOverlay>(InLayout);
+		if (WorkLayout->GetChildrenCount() == 0)
+		{
+			WorkLayout->RemoveFromParent();
+			ActiveOverlay.Remove(WorkLayout);
+			UnActiveOverlay.Push(WorkLayout);
+		}
+	}
+}
+
 void UDDFrameWidget::DoEnterUIPanel(FName PanelName)
 {
 	// 获取面板实例
@@ -364,6 +388,7 @@ void UDDFrameWidget::HideUIPanel(FName PanelName)
 	}
 }
 
+
 void UDDFrameWidget::HidePanelDoNothing(UDDPanelWidget* PanelWidget)
 {
 	// 从显示组移除
@@ -403,6 +428,106 @@ void UDDFrameWidget::HidePanelReverse(UDDPanelWidget* PanelWidget)
 	PopPanelStack.Remove(PanelWidget->GetObjectName());
 	// 执行隐藏函数
 	PanelWidget->PanelHidden();
+
+	// 调整弹窗栈
+	PopStack.Pop();
+	if (PopStack.Num() > 0)
+	{
+		UDDPanelWidget* PrePanelWidget = PopStack[PopStack.Num() - 1];
+		// 转移遮罩到新的最顶层的弹窗的下一层
+		TransferMask(PrePanelWidget);
+		// 恢复被冻结的最顶层的弹窗
+		PrePanelWidget->PanelResume();
+	}
+	else
+		RemoveMaskPanel();
+}
+
+void UDDFrameWidget::ExitUIPanel(FName PanelName)
+{
+	// 如果UI正在加载但是没有加载完成,这种情况出现在执行第一次显示或者提前加载后就马上执行销毁界面，后期会进行完善
+	if (!AllPanelGroup.Contains(PanelName) && LoadedPanelName.Contains(PanelName))
+	{
+		DDH::Debug() << "Please Do Not Exit UI Panel when Loading Panel : " << PanelName << DDH::Endl();
+		return;
+	}
+	// 如果这个UI面板没有加载到全部组
+	if (!AllPanelGroup.Contains(PanelName))
+		return;
+	// 获取UI面板
+	UDDPanelWidget* PanelWidget = *AllPanelGroup.Find(PanelName);
+	// 是否在显示组或者弹窗栈内,如果在的话，先隐藏再销毁
+	if (!ShowPanelGroup.Contains(PanelName) && !PopPanelStack.Contains(PanelName))
+	{
+		AllPanelGroup.Remove(PanelName);
+		LoadedPanelName.Remove(PanelName);
+		// 销毁生命周期，具体内存释放代码在该周期函数里面
+		PanelWidget->PanelExit();
+		// 直接返回
+		return;
+	}
+	// 处理隐藏UI面板相关的流程
+	switch (PanelWidget->UINature.PanelShowType)
+	{
+	case EPanelShowType::DoNothing:
+		ExitPanelDoNothing(PanelWidget);
+		break;
+	case EPanelShowType::HideOther:
+		ExitPanelHideOther(PanelWidget);
+		break;
+	case EPanelShowType::Reverse:
+		ExitPanelReverse(PanelWidget);
+		break;
+	}
+}
+
+void UDDFrameWidget::ExitPanelDoNothing(UDDPanelWidget* PanelWidget)
+{
+	// 从显示组，全部组，加载名字组移除
+	ShowPanelGroup.Remove(PanelWidget->GetObjectName());
+	AllPanelGroup.Remove(PanelWidget->GetObjectName());
+	LoadedPanelName.Remove(PanelWidget->GetObjectName());
+
+	// 运行销毁生命周期
+	PanelWidget->PanelExit();
+}
+
+void UDDFrameWidget::ExitPanelHideOther(UDDPanelWidget* PanelWidget)
+{
+	// 从显示组，全部组，加载名字组移除
+	ShowPanelGroup.Remove(PanelWidget->GetObjectName());
+	AllPanelGroup.Remove(PanelWidget->GetObjectName());
+	LoadedPanelName.Remove(PanelWidget->GetObjectName());
+
+	// 显示被隐藏的UI面板
+	// 显示同一层级下的其它UI面板，如果该面板是Level_All层级，显示所有显示组的面板
+	for (TMap<FName, UDDPanelWidget*>::TIterator It(ShowPanelGroup); It; ++It)
+		if (PanelWidget->UINature.LayoutLevel == ELayoutLevel::Level_All || PanelWidget->UINature.LayoutLevel == It.Value()->UINature.LayoutLevel)
+			It.Value()->PanelDisplay();
+
+	// 运行销毁生命周期
+	PanelWidget->PanelExit();
+}
+
+void UDDFrameWidget::ExitPanelReverse(UDDPanelWidget* PanelWidget)
+{
+	// 获取弹窗栈
+	TArray<UDDPanelWidget*> PopStack;
+	PopPanelStack.GenerateValueArray(PopStack);
+
+	// 判断如果不是最上层的弹窗，直接返回
+	if (PopStack[PopStack.Num() - 1] != PanelWidget)
+	{
+		DDH::Debug() << PanelWidget->GetObjectName() << " Is Not Last Panel In PopPanelStack!!! " << DDH::Endl();
+		return;
+	}
+
+	// 从栈,全部组，加载名字组中移除
+	PopPanelStack.Remove(PanelWidget->GetObjectName());
+	AllPanelGroup.Remove(PanelWidget->GetObjectName());
+	LoadedPanelName.Remove(PanelWidget->GetObjectName());
+	// 执行销毁函数
+	PanelWidget->PanelExit();
 
 	// 调整弹窗栈
 	PopStack.Pop();

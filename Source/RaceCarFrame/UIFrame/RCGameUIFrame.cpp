@@ -28,23 +28,7 @@ DDCoroTask* URCGameUIFrame::UIProcess()
 
 #include DDYIELD_READY() 
 	DDYIELD_RETURN_SECOND(3.f);
-	D->ShowUIPanel("MenuPanel");
-
-#include DDYIELD_READY() 
-	DDYIELD_RETURN_SECOND(3.f);
-	D->ShowUIPanel("OptionPanel");
-
-#include DDYIELD_READY() 
-	DDYIELD_RETURN_SECOND(3.f);
-	D->HideUIPanel("MenuPanel");
-
-#include DDYIELD_READY() 
-	DDYIELD_RETURN_SECOND(3.f);
-	D->HideUIPanel("OptionPanel");
-
-#include DDYIELD_READY() 
-	DDYIELD_RETURN_SECOND(3.f);
-	D->HideUIPanel("MenuPanel");
+	D->ShowUIPanel("BigMapPanel");
 
 #include DDYIELD_READY() 
 	DDYIELD_RETURN_SECOND(3.f);
@@ -53,6 +37,26 @@ DDCoroTask* URCGameUIFrame::UIProcess()
 #include DDYIELD_READY() 
 	DDYIELD_RETURN_SECOND(3.f);
 	D->ShowUIPanel("OptionPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ExitUIPanel("MiniMapPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ExitUIPanel("OptionPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ExitUIPanel("BigMapPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ExitUIPanel("StatePanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ExitUIPanel("MenuPanel");
 
 #include DDCORO_END()
 }

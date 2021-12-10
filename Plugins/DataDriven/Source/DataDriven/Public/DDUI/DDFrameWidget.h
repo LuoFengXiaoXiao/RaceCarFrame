@@ -33,12 +33,20 @@ public:
 	UFUNCTION()
 		void HideUIPanel(FName PanelName);
 
+	// 销毁UI
+	UFUNCTION()
+		void ExitUIPanel(FName PanelName);
+
 	// 提前加载面板回调函数
 	UFUNCTION()
 		void AcceptAdvancePanel(FName BackName,UUserWidget* BackWidget);
 	// 显示时加载回调函数,直接显示
 	UFUNCTION()
 		void AcceptPanelWidget(FName BackName,UUserWidget* BackWidget);
+
+	// 处理UI面板销毁后的父控件
+	UFUNCTION()
+		void ExitCallBack(ELayoutType LayoutType,UPanelWidget* InLayout);
 
 protected:
 
@@ -70,6 +78,11 @@ protected:
 	void HidePanelDoNothing(UDDPanelWidget* PanelWidget);
 	void HidePanelHideOther(UDDPanelWidget* PanelWidget);
 	void HidePanelReverse(UDDPanelWidget* PanelWidget);
+
+	// 销毁UI
+	void ExitPanelDoNothing(UDDPanelWidget* PanelWidget);
+	void ExitPanelHideOther(UDDPanelWidget* PanelWidget);
+	void ExitPanelReverse(UDDPanelWidget* PanelWidget);
 
 	// 激活遮罩
 	void ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType);

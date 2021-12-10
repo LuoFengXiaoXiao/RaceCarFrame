@@ -35,13 +35,24 @@ protected:
 	// 隐藏UI面板
 	void SetSelfHidden();
 
+	// 销毁动画回调函数
+	void RemoveCallBack();
+
+	DDOBJFUNC_TWO(ExitCallBack, ELayoutType, LayoutType, UPanelWidget*, WorkLayout);
+
 public:
 	UPROPERTY(EditAnywhere)
 		FUINature UINature;
 	
 protected:
 
-	// 避免消耗太多内存,不用每次创建都需要重新创建
+	// 避免消耗太多内存,不用每次创建都需要重新创建,隐藏动画任务名
 	static FName PanelHiddenName;
+	// UIFrame管理器所在的模组ID，约定在HUD下，数值是1
+	static int32 UIFrameModuleIndex;
+	// UIFrame管理器的对象名，约定是UIFrame
+	static FName UIFrameName;
+	// 销毁回调函数名字
+	static FName ExitCallBackName;
 
 };
