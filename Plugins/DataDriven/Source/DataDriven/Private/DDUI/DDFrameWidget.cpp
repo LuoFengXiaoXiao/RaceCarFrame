@@ -78,6 +78,8 @@ void UDDFrameWidget::ShowUIPanel(FName PanelName)
 	}
 }
 
+
+
 void UDDFrameWidget::AcceptAdvancePanel(FName BackName, UUserWidget* BackWidget)
 {
 	UDDPanelWidget* PanelWidget = Cast<UDDPanelWidget>(BackWidget);
@@ -187,6 +189,96 @@ void UDDFrameWidget::DoEnterUIPanel(FName PanelName)
 }
 
 void UDDFrameWidget::DoShowUIPanel(FName PanelName)
+{
+	// 从全部组获取对象
+	UDDPanelWidget* PanelWidget = *AllPanelGroup.Find(PanelName);
+
+	// 根据UI面板类型调用不同的显示方法
+	switch (PanelWidget->UINature.PanelShowType)
+	{
+		case EPanelShowType::DoNothing:
+			ShowPanelDoNothing(PanelWidget);
+			break;
+		case EPanelShowType::HideOther:
+			ShowPanelHideOther(PanelWidget);
+			break;
+		case EPanelShowType::Reverse:
+			ShowPanelReverse(PanelWidget);
+			break;
+	}
+}
+
+void UDDFrameWidget::ShowPanelDoNothing(UDDPanelWidget* PanelWidget)
+{
+	// 添加UI面板到显示组
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+	PanelWidget->PanelDisplay();
+}
+
+void UDDFrameWidget::ShowPanelHideOther(UDDPanelWidget* PanelWidget)
+{
+	// 隐藏同一层级的UI,将显示组的同一层级的其他对象都隐藏，如果是Level_All就全部隐藏，Level_All优先级最高
+	for (TMap<FName, UDDPanelWidget*>::TIterator It(ShowPanelGroup); It; ++It)
+		if (PanelWidget->UINature.LayoutLevel == ELayoutLevel::Level_All || PanelWidget->UINature.LayoutLevel == It.Value()->UINature.LayoutLevel)
+			It.Value()->PanelHidden();
+
+	// 添加到显示组
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+	PanelWidget->PanelDisplay();
+}
+
+void UDDFrameWidget::ShowPanelReverse(UDDPanelWidget* PanelWidget)
+{
+
+}
+
+void UDDFrameWidget::HideUIPanel(FName PanelName)
+{
+	// 判断UI面板实在显示组或者弹窗栈,不存在或未加载到内存
+	if (!ShowPanelGroup.Contains(PanelName) && !PopPanelStack.Contains(PanelName))
+		return;
+
+	// 从全部组获取对象
+	UDDPanelWidget* PanelWidget = *AllPanelGroup.Find(PanelName);
+
+	// 获取UI面板
+	switch (PanelWidget->UINature.PanelShowType)
+	{
+	case EPanelShowType::DoNothing:
+		HidePanelDoNothing(PanelWidget);
+		break;
+	case EPanelShowType::HideOther:
+		HidePanelHideOther(PanelWidget);
+		break;
+	case EPanelShowType::Reverse:
+		HidePanelReverse(PanelWidget);
+		break;
+	}
+}
+
+void UDDFrameWidget::HidePanelDoNothing(UDDPanelWidget* PanelWidget)
+{
+	// 从显示组移除
+	ShowPanelGroup.Remove(PanelWidget->GetObjectName());
+	// 运行隐藏生命周期
+	PanelWidget->PanelHidden();
+}
+
+void UDDFrameWidget::HidePanelHideOther(UDDPanelWidget* PanelWidget)
+{
+	// 从显示组移除
+	ShowPanelGroup.Remove(PanelWidget->GetObjectName());
+
+	// 显示同一层级下的其它UI面板，如果该面板是Level_All层级，显示所有显示组的面板
+	for (TMap<FName, UDDPanelWidget*>::TIterator It(ShowPanelGroup); It; ++It)
+		if (PanelWidget->UINature.LayoutLevel == ELayoutLevel::Level_All || PanelWidget->UINature.LayoutLevel == It.Value()->UINature.LayoutLevel)
+			It.Value()->PanelDisplay();
+
+	// 运行隐藏生命周期
+	PanelWidget->PanelHidden();
+}
+
+void UDDFrameWidget::HidePanelReverse(UDDPanelWidget* PanelWidget)
 {
 
 }
@@ -320,6 +412,8 @@ void UDDFrameWidget::EnterPanelReverse(UOverlay* WorkLayout, UDDPanelWidget* Pan
 	PopPanelStack.Add(PanelWidget->GetObjectName(), PanelWidget);
 	PanelWidget->PanelEnter();
 }
+
+
 
 void UDDFrameWidget::ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType)
 {

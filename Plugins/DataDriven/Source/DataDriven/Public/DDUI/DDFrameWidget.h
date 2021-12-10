@@ -29,6 +29,10 @@ public:
 	UFUNCTION()
 		void ShowUIPanel(FName PanelName);
 
+	// 隐藏UI
+	UFUNCTION()
+		void HideUIPanel(FName PanelName);
+
 	// 提前加载面板回调函数
 	UFUNCTION()
 		void AcceptAdvancePanel(FName BackName,UUserWidget* BackWidget);
@@ -56,6 +60,16 @@ protected:
 
 	void EnterPanelReverse(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
 	void EnterPanelReverse(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
+
+	// 显示UI
+	void ShowPanelDoNothing(UDDPanelWidget* PanelWidget);
+	void ShowPanelHideOther(UDDPanelWidget* PanelWidget);
+	void ShowPanelReverse(UDDPanelWidget* PanelWidget);
+
+	// 隐藏UI
+	void HidePanelDoNothing(UDDPanelWidget* PanelWidget);
+	void HidePanelHideOther(UDDPanelWidget* PanelWidget);
+	void HidePanelReverse(UDDPanelWidget* PanelWidget);
 
 	// 激活遮罩
 	void ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType);
