@@ -16,4 +16,7 @@ class RACECARFRAME_API URCGameUIFrame : public UDDFrameWidget
 	
 public:
 	virtual void DDInit() override;
+
+	// 同级别隐藏测试函数
+	DDCoroTask* UIProcess();
 };

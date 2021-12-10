@@ -23,8 +23,25 @@ public:
 	virtual void PanelResume(); // 解冻结
 	virtual void PanelExit(); // 销毁
 
+	// 动画回调函数
+	UFUNCTION(BlueprintImplementableEvent)
+		float DisplayEnterMovie();
+
+	UFUNCTION(BlueprintImplementableEvent)
+		float DisplayLeaveMovie();
+
+protected:
+
+	// 隐藏UI面板
+	void SetSelfHidden();
+
 public:
 	UPROPERTY(EditAnywhere)
 		FUINature UINature;
 	
+protected:
+
+	// 避免消耗太多内存,不用每次创建都需要重新创建
+	static FName PanelHiddenName;
+
 };

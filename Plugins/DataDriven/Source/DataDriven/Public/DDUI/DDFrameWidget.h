@@ -57,6 +57,14 @@ protected:
 	void EnterPanelReverse(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget);
 	void EnterPanelReverse(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget);
 
+	// 激活遮罩
+	void ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType);
+	void ActiveMask(UOverlay* WorkLayout, EPanelLucenyType LucenyType);
+
+	// 将MaskPanel移出，传入的layout如果不为空，说明MaskPanel准备添加到这个Layout
+	// UPanelWidget是UOverlay和UCanvasPanel共同的父类
+	void RemoveMaskPanel(UPanelWidget* WorkLayout = NULL);
+
 protected:
 	// 根节点
 	UCanvasPanel* RootCanvas;

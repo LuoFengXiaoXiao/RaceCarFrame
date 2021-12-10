@@ -241,20 +241,175 @@ void UDDFrameWidget::EnterPanelDoNothing(UOverlay* WorkLayout, UDDPanelWidget* P
 
 void UDDFrameWidget::EnterPanelHideOther(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 隐藏同一层级的UI,将显示组的同一层级的其他对象都隐藏，如果是Level_All就全部隐藏，Level_All优先级最高
+	for (TMap<FName, UDDPanelWidget*>::TIterator It(ShowPanelGroup); It; ++It)
+		if (PanelWidget->UINature.LayoutLevel == ELayoutLevel::Level_All || PanelWidget->UINature.LayoutLevel == It.Value()->UINature.LayoutLevel)
+			It.Value()->PanelHidden();
+	// 添加UI面板到Layout
+	UCanvasPanelSlot* PanelSlot = WorkLayout->AddChildToCanvas(PanelWidget);
+	PanelSlot->SetAnchors(PanelWidget->UINature.Anchors);
+	PanelSlot->SetOffsets(PanelWidget->UINature.Offsets);
 
+	// 添加UI面板到显示组
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+
+	// 调用进入界面生命周期函数
+	PanelWidget->PanelEnter();
 }
 
 void UDDFrameWidget::EnterPanelHideOther(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 隐藏同一层级的UI,将显示组的同一层级的其他对象都隐藏，如果是Level_All就全部隐藏，Level_All优先级最高
+	for (TMap<FName, UDDPanelWidget*>::TIterator It(ShowPanelGroup); It; ++It)
+		if (PanelWidget->UINature.LayoutLevel == ELayoutLevel::Level_All || PanelWidget->UINature.LayoutLevel == It.Value()->UINature.LayoutLevel)
+			It.Value()->PanelHidden();
+	// 添加UI面板到Overlay
+	UOverlaySlot* PanelSlot = WorkLayout->AddChildToOverlay(PanelWidget);
+	PanelSlot->SetPadding(PanelWidget->UINature.Offsets);
+	PanelSlot->SetHorizontalAlignment(PanelWidget->UINature.HAlign);
+	PanelSlot->SetVerticalAlignment(PanelWidget->UINature.VAlign);
 
+	// 添加UI面板到显示组
+	ShowPanelGroup.Add(PanelWidget->GetObjectName(), PanelWidget);
+
+	// 调用进入界面生命周期函数
+	PanelWidget->PanelEnter();
 }
 
 void UDDFrameWidget::EnterPanelReverse(UCanvasPanel* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 把栈内最后一个节点冻结
+	if (PopPanelStack.Num() > 0)
+	{
+		TArray<UDDPanelWidget*> PanelStack;
+		PopPanelStack.GenerateValueArray(PanelStack);
+		PanelStack[PanelStack.Num() - 1]->PanelFreeze();
+	}
+	// 激活遮罩
+	ActiveMask(WorkLayout, PanelWidget->UINature.PanelLucenyType);
 
+	// 添加弹窗到界面
+	UCanvasPanelSlot* PanelSlot = WorkLayout->AddChildToCanvas(PanelWidget);
+	PanelSlot->SetAnchors(PanelWidget->UINature.Anchors);
+	PanelSlot->SetOffsets(PanelWidget->UINature.Offsets);
+
+	// 添加弹窗到栈，并且运行进入生命周期函数
+	PopPanelStack.Add(PanelWidget->GetObjectName(), PanelWidget);
+	PanelWidget->PanelEnter();
 }
 
 void UDDFrameWidget::EnterPanelReverse(UOverlay* WorkLayout, UDDPanelWidget* PanelWidget)
 {
+	// 把栈内最后一个节点冻结
+	if (PopPanelStack.Num() > 0)
+	{
+		TArray<UDDPanelWidget*> PanelStack;
+		PopPanelStack.GenerateValueArray(PanelStack);
+		PanelStack[PanelStack.Num() - 1]->PanelFreeze();
+	}
+	// 激活遮罩
+	ActiveMask(WorkLayout, PanelWidget->UINature.PanelLucenyType);
 
+	// 添加弹窗到界面
+	UOverlaySlot* PanelSlot = WorkLayout->AddChildToOverlay(PanelWidget);
+	PanelSlot->SetPadding(PanelWidget->UINature.Offsets);
+	PanelSlot->SetHorizontalAlignment(PanelWidget->UINature.HAlign);
+	PanelSlot->SetVerticalAlignment(PanelWidget->UINature.VAlign);
+
+	// 添加弹窗到栈，并且运行进入生命周期函数
+	PopPanelStack.Add(PanelWidget->GetObjectName(), PanelWidget);
+	PanelWidget->PanelEnter();
+}
+
+void UDDFrameWidget::ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType)
+{
+	// 移除遮罩
+	RemoveMaskPanel(WorkLayout);
+
+	// 添加遮罩到新的父控件
+	UCanvasPanelSlot* MaskSlot = WorkLayout->AddChildToCanvas(MaskPanel);
+	MaskSlot->SetAnchors(FAnchors(0.f, 0.f, 1.f, 1.f));
+	MaskSlot->SetOffsets(FMargin(0.f, 0.f, 0.f, 0.f));
+
+	// 根据透明类型设置透明度
+	switch (LucenyType)
+	{
+	case EPanelLucenyType::Lucency:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(NormalLucency);
+		break;
+	case EPanelLucenyType::Translucence:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(TranslucenceLucency);
+		break;
+	case EPanelLucenyType::ImPenetrable:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(ImPenetrableLucency);
+		break;
+	case EPanelLucenyType::Pentrate:
+		MaskPanel->SetVisibility(ESlateVisibility::Hidden);
+		MaskPanel->SetColorAndOpacity(NormalLucency);
+		break;
+	}
+}
+
+void UDDFrameWidget::ActiveMask(UOverlay* WorkLayout, EPanelLucenyType LucenyType)
+{
+	// 移除遮罩
+	RemoveMaskPanel(WorkLayout);
+
+	// 添加遮罩到新的父控件
+	UOverlaySlot* MaskSlot = WorkLayout->AddChildToOverlay(MaskPanel);
+	MaskSlot->SetPadding(FMargin(0.f, 0.f, 0.f, 0.f));
+	MaskSlot->SetHorizontalAlignment(HAlign_Fill);
+	MaskSlot->SetVerticalAlignment(VAlign_Fill);
+
+	// 根据透明类型设置透明度
+	switch (LucenyType)
+	{
+	case EPanelLucenyType::Lucency:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(NormalLucency);
+		break;
+	case EPanelLucenyType::Translucence:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(TranslucenceLucency);
+		break;
+	case EPanelLucenyType::ImPenetrable:
+		MaskPanel->SetVisibility(ESlateVisibility::Visible);
+		MaskPanel->SetColorAndOpacity(ImPenetrableLucency);
+		break;
+	case EPanelLucenyType::Pentrate:
+		MaskPanel->SetVisibility(ESlateVisibility::Hidden);
+		MaskPanel->SetColorAndOpacity(NormalLucency);
+		break;
+	}
+}
+
+void UDDFrameWidget::RemoveMaskPanel(UPanelWidget* WorkLayout /*= NULL*/)
+{
+	// 获取遮罩当前父控件
+	UPanelWidget* MaskParent = MaskPanel->GetParent();
+	if (MaskParent)
+	{
+		// 比较当前父控件与将要插入的父控件是否相同,当前父控件的子控件为1
+		if (MaskParent != WorkLayout && MaskParent->GetChildrenCount() == 1)
+		{
+			MaskParent->RemoveFromParent();
+			UCanvasPanel* ParentCanvas = Cast<UCanvasPanel>(MaskParent);
+			UOverlay* ParentOverlay = Cast<UOverlay>(MaskParent);
+			if (ParentCanvas)
+			{
+				ActiveCanvas.Remove(ParentCanvas);
+				UnActiveCanvas.Push(ParentCanvas);
+			}
+			else if (ParentOverlay)
+			{
+				ActiveOverlay.Remove(ParentOverlay);
+				UnActiveOverlay.Push(ParentOverlay);
+			}
+		}
+		// 将遮罩从父级移除
+		MaskPanel->RemoveFromParent();
+	}
 }
