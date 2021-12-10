@@ -546,7 +546,7 @@ void UDDFrameWidget::ExitPanelReverse(UDDPanelWidget* PanelWidget)
 void UDDFrameWidget::WaitShowPanel()
 {
 	TArray<FName> CompleteName;
-	for (int i = 0;WaitShowPanelName.Num();++i)
+	for (int i = 0;i<WaitShowPanelName.Num();++i)
 	{
 		if (AllPanelGroup.Contains(WaitShowPanelName[i]))
 		{

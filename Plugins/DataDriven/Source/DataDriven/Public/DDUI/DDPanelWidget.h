@@ -38,7 +38,20 @@ protected:
 	// 销毁动画回调函数
 	void RemoveCallBack();
 
+	// 处理自己本身
+	void ShowSelfPanel();
+	void HideSelfPanel();
+	void ExitSelfPanel();
+	void AdvanceLoadPanel(FName PanelName);
+
+	// 处理其它UI
+	void ShowUIPanel(FName PanelName);
+	void HideUIPanel(FName PanelName);
+	void ExitUIPanel(FName PanelName);
+
 	DDOBJFUNC_TWO(ExitCallBack, ELayoutType, LayoutType, UPanelWidget*, WorkLayout);
+
+	DDOBJFUNC_ONE(OperatorUIPanel, FName, PanelName);
 
 public:
 	UPROPERTY(EditAnywhere)
@@ -54,5 +67,12 @@ protected:
 	static FName UIFrameName;
 	// 销毁回调函数名字
 	static FName ExitCallBackName;
-
+	// 显示UI方法名
+	static FName ShowUIPanelName;
+	// 隐藏UI方法名
+	static FName HideUIPanelName;
+	// 销毁UI方法名
+	static FName ExitUIPanelName;
+	// 预加载方法名字
+	static FName AdvanceLoadPanelName;
 };
