@@ -75,6 +75,9 @@ protected:
 	void ActiveMask(UCanvasPanel* WorkLayout, EPanelLucenyType LucenyType);
 	void ActiveMask(UOverlay* WorkLayout, EPanelLucenyType LucenyType);
 
+	// 转移遮罩,将遮罩放置在传入的UI面板的下一层
+	void TransferMask(UDDPanelWidget* PanelWidget);
+
 	// 将MaskPanel移出，传入的layout如果不为空，说明MaskPanel准备添加到这个Layout
 	// UPanelWidget是UOverlay和UCanvasPanel共同的父类
 	void RemoveMaskPanel(UPanelWidget* WorkLayout = NULL);

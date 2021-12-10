@@ -27,25 +27,32 @@ DDCoroTask* URCGameUIFrame::UIProcess()
 	D->ShowUIPanel("MiniMapPanel");
 
 #include DDYIELD_READY() 
-	DDYIELD_RETURN_SECOND(6.f);
-		//D->ShowUIPanel("MenuPanel");
-	D->HideUIPanel("StatePanel");
-#include DDYIELD_READY() 
-		DDYIELD_RETURN_SECOND(6.f);
-		//D->ShowUIPanel("OptionPanel");
-		D->ShowUIPanel("StatePanel");
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ShowUIPanel("MenuPanel");
 
 #include DDYIELD_READY() 
-		DDYIELD_RETURN_SECOND(6.f);
-		D->ShowUIPanel("BigMapPanel");
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ShowUIPanel("OptionPanel");
 
 #include DDYIELD_READY() 
-		DDYIELD_RETURN_SECOND(6.f);
-		D->HideUIPanel("BigMapPanel");
+	DDYIELD_RETURN_SECOND(3.f);
+	D->HideUIPanel("MenuPanel");
 
 #include DDYIELD_READY() 
-		DDYIELD_RETURN_SECOND(6.f);
-		D->ShowUIPanel("BigMapPanel");
+	DDYIELD_RETURN_SECOND(3.f);
+	D->HideUIPanel("OptionPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->HideUIPanel("MenuPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ShowUIPanel("MenuPanel");
+
+#include DDYIELD_READY() 
+	DDYIELD_RETURN_SECOND(3.f);
+	D->ShowUIPanel("OptionPanel");
 
 #include DDCORO_END()
 }
